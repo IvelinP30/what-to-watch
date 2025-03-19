@@ -1,0 +1,1 @@
+// export const LOGO = 'https://cdn-icons-png.flaticon.com/512/2798/2798007.png'
