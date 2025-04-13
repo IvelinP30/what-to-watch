@@ -7,9 +7,12 @@ const Trailer = ({ item }) => {
                 <>
                     {item.trailer && item.trailer.length > 0 ?
                     <Flex flexDirection='column' gap='20px'>
-                        <iframe width='100%' height='100%'
-                            src={`https://www.youtube.com/embed/${item?.trailer[0]?.key}`}
-
+                        <iframe 
+                            width='100%' 
+                            height='100%' 
+                            src={`https://www.youtube.com/embed/${item?.trailer[0]?.key}`} 
+                            allowFullScreen 
+                            title={`Trailer for ${item?.title || item?.name || 'this movie'}`}
                         />
                         <Flex flexDirection='column' gap='5px'>
                             <Text color='#e1e1e1' fontWeight='normal'>Overview:</Text>
