@@ -1,4 +1,5 @@
 import { Flex, Text, Spinner } from "@chakra-ui/react";
+import SocialLinks from "../SocialLinks/SocialLinks";
 
 const Trailer = ({ item }) => {
     return (
@@ -14,8 +15,11 @@ const Trailer = ({ item }) => {
                             allowFullScreen 
                             title={`Trailer for ${item?.title || item?.name || 'this movie'}`}
                         />
+                        <Flex width="100%" justifyContent="flex-end" marginBottom="-20px">
+                            {(item.externalIds || item.homepage) &&  <SocialLinks externalIds={item.externalIds} homepage={item.homepage} />}
+                        </Flex>
                         <Flex flexDirection='column' gap='5px'>
-                            <Text color='#e1e1e1' fontWeight='normal'>Overview:</Text>
+                            <Text color='#e1e1e1' fontWeight='bold'>Overview:</Text>
                             <Text color='#afafaf'>{item?.overview}</Text>
                         </Flex>
                     </Flex>

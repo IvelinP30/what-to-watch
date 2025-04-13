@@ -150,3 +150,17 @@ export const getSearch = async (searchQuery, pageNumber) => {
     return {success: false}
   }
 }
+
+export const getItemExternalIds = async (id, type) => {
+  try {
+    const response = await fetch(
+      `${baseURL}/${type}/${id}/external_ids`,
+      optionsGet
+    )
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return {success: false}
+  }
+}

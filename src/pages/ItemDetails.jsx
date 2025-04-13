@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { getItem, getItemProviders, getItemTrailer, getSimilarItems } from "../services/movieService";
+import { getItem, getItemExternalIds, getItemProviders, getItemTrailer, getSimilarItems } from "../services/movieService";
 import { Box, Flex } from "@chakra-ui/react";
 
 import SimilarItems from "../components/SimilarItems/SimilarItems";
@@ -17,9 +17,9 @@ const ItemDetails = () => {
             const movieData = await getItem(id, type);
             const providers = await getItemProviders(id, type);
             const trailer = await getItemTrailer(id, type);
-            const similar = await getSimilarItems(id, type)
-            setitem({ ...movieData, providers, trailer, similar });
-
+            const similar = await getSimilarItems(id, type);
+            const externalIds = await getItemExternalIds(id, type);
+            setitem({ ...movieData, providers, trailer, similar, externalIds });
         }
         fetchMovie();
     }, [id, type]);
