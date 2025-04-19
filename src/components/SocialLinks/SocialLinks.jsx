@@ -11,31 +11,31 @@ import {
 const SOCIAL_LINKS = [
     {
         id: 'imdb_id',
-        label: 'IMDb',
+        label: 'Visit IMDb',
         icon: FaImdb,
         url: (id) => `https://www.imdb.com/title/${id}`
     },
     {
         id: 'facebook_id',
-        label: 'Facebook',
+        label: 'Visit Facebook',
         icon: FaFacebook,
         url: (id) => `https://www.facebook.com/${id}`
     },
     {
         id: 'instagram_id',
-        label: 'Instagram',
+        label: 'Visit Instagram',
         icon: FaInstagram,
         url: (id) => `https://www.instagram.com/${id}`
     },
     {
         id: 'twitter_id',
-        label: 'Twitter',
+        label: 'Visit Twitter',
         icon: FaTwitter,
         url: (id) => `https://www.twitter.com/${id}`
     },
     {
         id: 'wikidata_id',
-        label: 'Wikidata',
+        label: 'Visit Wikidata',
         icon: FaWikipediaW,
         url: (id) => `https://www.wikidata.org/wiki/${id}`
     },
@@ -45,7 +45,7 @@ const SocialLinks = ({ externalIds, homepage }) => {
     return (
         <Flex gap="20px" wrap="wrap">
             {homepage && (
-                <Tooltip label="Homepage" hasArrow>
+                <Tooltip label="Visit Homepage" hasArrow>
                     <Link href={homepage} isExternal>
                         <IconButton
                             icon={<FaHome />}

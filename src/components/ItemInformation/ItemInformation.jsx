@@ -8,7 +8,7 @@ const ItemInformation = ({item, type}) => {
         <Flex flexDirection={{ base: 'column', md: 'row', lg: 'column' }} flexBasis='25%' alignItems={{ base: 'center', md: 'bold' }} zIndex='100'>
             <Image src={`https://image.tmdb.org/t/p/original/${item?.poster_path}`} fallbackSrc="/placeholder.jpg" fit='contain' width={{ base: '60%', lg: '100%' }} marginRight={{ base: '1rem', lg: '0' }} />
             <Flex flexDirection='column' margin='0.5rem 0'>
-                <Text as='h2' fontSize='2.5rem' fontWeight='black' color='#fff' padding='0.5rem 0'>{item?.original_title}</Text>
+                <Text as='h2' fontSize='2.5rem' fontWeight='black' color='#fff' padding='0.5rem 0'>{item?.title}</Text>
                 <Text as='h3' fontSize='1.5rem' fontWeight='bold' color='#C0C0C0' padding='0 0 1rem 0'>{item.tagline}</Text>
                 <Flex gap='0.5rem'>
                     <Text color='#e1e1e1' fontWeight='bold'>Score: </Text>
@@ -51,19 +51,6 @@ const ItemInformation = ({item, type}) => {
                     }
 
                 </Flex>
-
-                {item?.homepage && (
-                    <Flex maxWidth="20vw" flexWrap='wrap'>
-                        <Text color='#e1e1e1' fontWeight='bold'>
-                            Homepage:
-                        </Text>
-                        <a href={item?.homepage} target="_blank" rel="noreferrer">
-                            <Text color='#1E90FF' textDecoration='underline' wordBreak="break-word"  maxWidth="20vw">
-                                {item?.homepage}
-                            </Text>
-                        </a>
-                    </Flex>
-                )}
                 {item.budget && (
                     <Flex gap='0.5rem' marginTop='2rem'>
                         <Text color='#e1e1e1' fontWeight='bold'>Budget:</Text>

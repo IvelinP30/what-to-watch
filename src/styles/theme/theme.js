@@ -13,26 +13,26 @@ const theme = extendTheme({
     global: {
       'h1, h2, h3, h4, h5, button, a': {
         fontFamily: "'Bebas Neue', sans-serif",
-        fontSize: '2.1rem',
+        fontSize: '2.1rem'
       },
       'p, span': {
         fontFamily: "'Roboto', sans-serif",
-        fontSize: '1.25rem',
+        fontSize: '1.25rem'
       },
       'input::placeholder': {
         fontFamily: "'Roboto', sans-serif",
-        fontSize: '1.25rem',
+        fontSize: '1.25rem'
       },
       '::-webkit-scrollbar': {
-          width: "10px",
+          width: "10px"
       },
       '::-webkit-scrollbar-track': {
-          background: 'main.100',
+          background: 'main.100'
       },
       '::-webkit-scrollbar-thumb': {
           background: 'main.200',
+          borderRadius: '50px'
       }
-    
     }}
 });
 

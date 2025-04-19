@@ -164,3 +164,17 @@ export const getItemExternalIds = async (id, type) => {
     return {success: false}
   }
 }
+
+export const getItemCredits = async (id, type) => {
+    try {
+      const response = await fetch(
+        `${baseURL}/${type}/${id}/credits`,
+        optionsGet
+      )
+      
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return {success: false}
+    }
+}

@@ -216,7 +216,7 @@ const FilterControlls = ({ setPageNumber, setCurrentItems, setItemsFilter }) => 
                         >
                             {
 
-                                Object.values(genres).map(genre => (<Box key={genre.id} width='100%' padding='0.5rem 2rem' cursor='pointer' color='#fff' marginTop='0.2rem' _hover={{ 'backgroundColor': 'main.100' }} backgroundColor={selectedGeneres.includes(genre.id.toString()) ? 'main.100' : 'none'} onClick={(e) => toggleGenre(e)}>{genre.genre}</Box>))
+                                Object.values(genres).map(genre => (<Box key={genre.id} width='100%' padding='0.5rem 2rem' cursor='pointer' color='#fff' marginTop='0.2rem' _hover={{ 'backgroundColor': '#5e5d5d' }} backgroundColor={selectedGeneres.includes(genre.id.toString()) ? 'main.100' : 'none'} onClick={(e) => toggleGenre(e)}>{genre.genre}</Box>))
                             }
 
 
@@ -342,7 +342,7 @@ const FilterControlls = ({ setPageNumber, setCurrentItems, setItemsFilter }) => 
                         >
                             {
 
-                                Object.values(genres).map(genre => (<Box key={genre.id} width='100%' padding='0.5rem 2rem' cursor='pointer' color='#fff' marginTop='0.2rem' _hover={{ 'backgroundColor': 'main.100' }} backgroundColor={selectedGeneres.includes(genre.id.toString()) ? 'main.100' : 'none'} onClick={(e) => toggleGenre(e)}>{genre.genre}</Box>))
+                                Object.values(genres).map(genre => (<Box key={genre.id} width='100%' padding='0.5rem 2rem' cursor='pointer' color='#fff' marginTop='0.2rem' _hover={{ 'backgroundColor': '#5e5d5d' }} backgroundColor={selectedGeneres.includes(genre.id.toString()) ? 'main.100' : 'none'} onClick={(e) => toggleGenre(e)}>{genre.genre}</Box>))
                             }
                             
                         </Flex>

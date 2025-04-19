@@ -6,7 +6,7 @@ const SimilarItems = ({ item, type }) => {
     return (
 
         <Flex flexDirection='column'>
-            <Text fontSize='2xl' fontWeight='black' color='#fff'>You might also like:</Text>
+            <Text fontSize='2xl' fontWeight='black' mb='10px' color='#fff'>You might also like:</Text>
             {item.similar?.success !== false ?
                 <MoviesGrid currentItems={item?.similar?.results.filter(item => item.vote_count >= 1000)} noResults={item?.similar?.results.filter(item => item.vote_count >= 1000).length === 0 ? true : false} type={type} />
                 :
