@@ -31,10 +31,23 @@ export const hidden = {
 export const logoStyles = {
     transition: 'transform 500ms ease-in-out',
     position: 'relative',
-    width: '115px',
+    width: { base: '115px', md: '95px', lg: '115px' },
+    minWidth: { md: '95px' },
+    mr: { base: 0, md: '10px', lg: '80px' },
+    ml: { base: 0, md: '10px', lg: '40px' },
     _hover: {
         transform: 'scale(1.1)'
     },
+};
+
+export const accountIcon = {
+    fontSize: "40px",
+    mr: { base: 0, md: '10px', lg: '40px' },
+    ml: { base: 0, md: '10px', lg: '80px' },
+    _active: {
+        color: "main.200",
+        backgroundColor: "none"
+    }
 }
 
 export const inputGroupStyles = {
@@ -65,10 +78,12 @@ export const searchIconStyles = {
 export const navStyles = {
     as: 'ul',
     listStyleType: 'none',
-    gap: '2rem',
+    gap: { base: '1rem', md: '1rem', lg: '2rem' },
     fontWeight: 'bolder',
-    fontSize: '2xl',
+    fontSize: 'xl',
     color: 'white',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
 }
 
 export const navLinkStyles = {

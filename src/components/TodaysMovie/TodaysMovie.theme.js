@@ -1,11 +1,3 @@
-export const todaysMovieContainer = {
-    padding: '2rem',
-    paddingBottom: '3rem',
-    paddingTop:'2rem',
-    backgroundColor:'main.100',
-    boxShadow:'1px -50px 122px 100px rgba(205,53,54,1)',
-}
-
 export const todaysMovieTitle = {
     textAlign: 'center',
     color: '#fff',
@@ -68,18 +60,6 @@ export const cardRating = {
     borderRadius: '50px 0 0 0',
 }
 
-export const featureInfoContainer = {
-    flexDirection: 'column',
-    color: '#fff',
-    margin: {
-        base: '0.5rem',
-        sm: '3rem',
-        md: '5rem'
-    },
-    textAlign: 'center',
-    textShadow: '2px 2px 50px rgba(0,0,0,1)',
-    
-}
 
 export const buttonStyles = {
     borderRadius: '5px',
