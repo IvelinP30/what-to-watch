@@ -16,22 +16,22 @@ const TodaysMovie = ({ movieOfTheDay }) => {
   const navigate = useNavigate();
 
   const goToTodaysMovieDetails = async () => {
-      navigate(`/movie/details/${movieOfTheDay.id}`)
+    navigate(`/movie/details/${movieOfTheDay.id}`)
   }
 
   return (
 
     <Box as='section'>
-          <Box
-            position='absolute'
-            bottom='-60%'
-            left='-10%'
-            backgroundColor='main.200'
-            borderRadius='30% 70% 70% 30% / 30% 60% 70% 70% '
-            width='100%'
-            height='100%'
-            zIndex='0'
-          />
+      <Box
+        position='absolute'
+        bottom='-60%'
+        left='-10%'
+        backgroundColor='main.200'
+        borderRadius='30% 70% 70% 30% / 30% 60% 70% 70% '
+        width='100%'
+        height='100%'
+        zIndex='-1'
+      />
       <Text as='h2' id='todays-movie' {...todaysMovieTitle}>Movie of the day</Text>
       {movieOfTheDay.success !== false ?
         <Card
@@ -62,7 +62,7 @@ const TodaysMovie = ({ movieOfTheDay }) => {
               <Heading  {...cardTitle}>{movieOfTheDay?.title}</Heading>
 
               <Text {...cardText}>{movieOfTheDay?.overview}</Text>
-              <Button {...buttonStyles}  onClick={() => goToTodaysMovieDetails()}>
+              <Button {...buttonStyles} onClick={() => goToTodaysMovieDetails()}>
                 <Text zIndex='1' color='#fff'>Learn More</Text>
               </Button>
               <Text {...cardRating}>{movieOfTheDay?.vote_average?.toFixed(1)}</Text>

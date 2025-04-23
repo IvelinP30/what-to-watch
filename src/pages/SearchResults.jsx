@@ -1,7 +1,7 @@
 import { Flex, Text, Button, Box } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { getSearch } from "../services/movieService"
+import { getSearch } from "../services/data"
 import { buttonStyles } from "../components/Hero/Hero.theme"
 import MoviesGrid from "../components/MoviesGrid/MoviesGrid"
 

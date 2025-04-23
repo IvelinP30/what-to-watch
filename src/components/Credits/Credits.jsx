@@ -13,10 +13,14 @@ const CreditsList = ({ creditsList = {} }) => {
     const listStyles = {
         overflowX: "scroll",
         gap: "1rem",
-        padding: "0.5rem",
+        padding: "2rem",
         width: "100%",
         sx: {
             "::-webkit-scrollbar": { height: "10px" },
+            '::-webkit-scrollbar-track': {
+                background: 'black',
+                borderRadius: '10px'
+            },
             "::-webkit-scrollbar-thumb": {
                 background: "white",
                 borderRadius: "8px"

@@ -19,7 +19,7 @@ const CrewMemberCard = ({ crewMember }) => {
         >
             <CardBody padding="0">
                 <Image
-                    src={`https://image.tmdb.org/t/p/original/${crewMember.profile_path}`}
+                    src={`https://image.tmdb.org/t/p/original/${crewMember?.profile_path}`}
                     alt={`${crewMember.name} image`}
                     height='200px'
                     width="100%"

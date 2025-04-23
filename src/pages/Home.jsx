@@ -1,13 +1,13 @@
 import Hero from "../components/Hero/Hero"
 import TodaysMovie from "../components/TodaysMovie/TodaysMovie"
 import FeatureInfoContainer from "../components/FeatureInfo/FeatureInfoContainer"
+import TrendingContainer from "../components/Trending/TrendingContainer"
 
 import { Box } from "@chakra-ui/react"
 
 import { useEffect, useState } from "react"
 
-import { getMovieOfTheDay, getRandomMovieHero } from "../services/movieService"
-
+import { getMovieOfTheDay, getRandomMovieHero } from "../services/data"
 
 const Home = () => {
   const [movieOfTheDay, setMovieOfTheDay] = useState({})
@@ -24,14 +24,16 @@ const Home = () => {
     }
     fetchMovieOfTheDay();
     fetchRandomMovie();
-    
   }, [])
+
   return (
     <Box position='relative' overflow='hidden'>
-      <Hero as='section' randomMovie={randomMovie}/>
-      <Box as='section' padding='2rem' paddingBottom='3rem' paddingTop='2rem' backgroundColor='main.100' boxShadow='1px -50px 122px 100px rgba(205,53,54,1)' position='relative' overflow='hidden'>
-        <TodaysMovie as='section' movieOfTheDay={movieOfTheDay}/>
-        
+      <Hero as='section' randomMovie={randomMovie} />
+      <Box as='section' paddingBottom='3rem' paddingTop='2rem' backgroundColor='main.100' boxShadow='1px -50px 122px 100px rgba(205,53,54,1)' position='relative' overflow='hidden' zIndex="0">
+        <Box padding='2rem' >
+          <TodaysMovie as='section' movieOfTheDay={movieOfTheDay} />
+        </Box>
+        <TrendingContainer width="100%" />
         <FeatureInfoContainer />
       </Box>
     </Box>

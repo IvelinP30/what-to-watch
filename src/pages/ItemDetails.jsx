@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { getItem, getItemCredits, getItemExternalIds, getItemProviders, getItemTrailer, getSimilarItems } from "../services/movieService";
+import { getItem, getItemCredits, getItemExternalIds, getItemProviders, getItemTrailer, getSimilarItems } from "../services/data";
 import { Box, Flex, Text, Heading } from "@chakra-ui/react";
 
 import SimilarItems from "../components/SimilarItems/SimilarItems";

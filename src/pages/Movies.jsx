@@ -1,6 +1,6 @@
 import { Flex, Text, Button, Box } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-import { getMovies } from "../services/movieService"
+import { getMovies } from "../services/data"
 import { buttonStyles } from "../components/Hero/Hero.theme"
 import FilterControlls from "../components/FilterControls/FilterControls"
 import SortControlls from "../components/SortControls/SortControls"

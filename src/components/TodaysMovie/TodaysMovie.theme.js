@@ -29,7 +29,6 @@ export const cardImage = {
 export const cardContentContainer = {
     backgroundColor: 'secondary.100',
     color: '#fff',
-    
 }
 
 export const cardTitle = {
