@@ -1,4 +1,4 @@
-export const todaysMovieTitle = {
+export const trendingTitle = {
     textAlign: 'center',
     marginBottom: '-70px',
     color: '#fff',
@@ -13,6 +13,9 @@ export const listStyles = {
     gap: "3rem",
     padding: "2rem",
     width: "100%",
+    height: "450px",
+    display: "flex",
+    alignItems: "center",
     sx: {
         "::-webkit-scrollbar": { height: "10px" },
         '::-webkit-scrollbar-track': {

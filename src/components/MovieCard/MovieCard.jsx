@@ -13,7 +13,7 @@ const MovieCard = ({ item, type = 'movie' }) => {
         <Card
             overflow='hidden'
             variant='elevated'
-            flexBasis={{base: '100%', md: '50%', lg:'33.33%'}}
+            flexBasis={{ base: '100%', md: '50%', lg: '33.33%' }}
             color='#fff'
             borderRadius='0'
             width='300px'
@@ -37,7 +37,11 @@ const MovieCard = ({ item, type = 'movie' }) => {
 
             />
             <Flex flexDirection='row' padding='1rem' justifyContent='space-between' gap='1rem'>
-                <Heading size='md' position='relative'>{item?.title || item?.original_name} ({item.release_date?.slice(0, 4) || item.first_air_date?.slice(0,4)})</Heading>
+                <Heading size='md' position='relative'>
+                    {type === 'movie'
+                        ? (item?.title || item?.original_name)
+                        : (item?.name || item?.original_name)} ({item.release_date?.slice(0, 4) || item.first_air_date?.slice(0, 4)})
+                </Heading>
                 <Text
                     position='absolute'
                     backgroundColor='main.100'
@@ -50,11 +54,11 @@ const MovieCard = ({ item, type = 'movie' }) => {
                     fontWeight='black'
                     fontSize='lg'
                 >
-                {  
-                    item?.vote_average > 0 ?
-                    item?.vote_average?.toFixed(1) :
-                    'N/A'
-                }
+                    {
+                        item?.vote_average > 0 ?
+                            item?.vote_average?.toFixed(1) :
+                            'N/A'
+                    }
                 </Text>
             </Flex>
         </Card>

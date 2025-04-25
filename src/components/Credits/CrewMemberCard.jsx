@@ -10,12 +10,16 @@ import {
 const CrewMemberCard = ({ crewMember }) => {
     return (
         <Card
-            minW="150px"
-            maxW="150px"
+            minW="170px"
+            maxW="170px"
             height="300px"
             overflow="hidden"
             borderRadius="md"
             boxShadow="md"
+            variant='elevated'
+            cursor='pointer'
+            _hover={{ transform: 'scale(1.03)' }}
+            transition='transform .5s'
         >
             <CardBody padding="0">
                 <Image

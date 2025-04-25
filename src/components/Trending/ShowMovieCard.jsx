@@ -14,7 +14,7 @@ const ShowMovieCard = ({ item, type = 'movie', onHover }) => {
         <Card
             minW="250px"
             maxW="250px"
-            height="300px"
+            height="350px"
             overflow="hidden"
             borderRadius="md"
             boxShadow="md"
@@ -28,7 +28,7 @@ const ShowMovieCard = ({ item, type = 'movie', onHover }) => {
         >
             <Image
                 position='absolute'
-                src={`https://image.tmdb.org/t/p/original/${item?.backdrop_path}`}
+                src={`https://image.tmdb.org/t/p/original/${item?.poster_path}`}
                 alt={`${item?.title} image`}
                 objectFit='cover'
                 objectPosition='center center'
@@ -38,9 +38,6 @@ const ShowMovieCard = ({ item, type = 'movie', onHover }) => {
                 fallbackSrc="/placeholder.jpg"
             />
             <Flex flexDirection='row' padding='1rem' justifyContent='space-between' gap='1rem'>
-                <Heading size='md' position='relative'>
-                    {item?.title || item?.original_name} ({item.release_date?.slice(0, 4) || item.first_air_date?.slice(0, 4)})
-                </Heading>
                 <Text
                     position='absolute'
                     backgroundColor='main.100'

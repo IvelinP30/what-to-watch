@@ -18,9 +18,7 @@ const PersonCard = ({ person, onHover }) => {
             boxShadow="md"
             variant='elevated'
             cursor='pointer'
-            _hover={{
-                transform: 'scale(1.05)'
-            }}
+            _hover={{ transform: 'scale(1.05)' }}
             transition='transform .5s'
             onMouseEnter={() => onHover?.()}
         >
