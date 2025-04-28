@@ -24,16 +24,17 @@ const theme = extendTheme({
         fontSize: '1.25rem'
       },
       '::-webkit-scrollbar': {
-          width: "10px"
+        width: "10px"
       },
       '::-webkit-scrollbar-track': {
-          background: 'main.100'
+        background: 'main.100'
       },
       '::-webkit-scrollbar-thumb': {
-          background: 'main.200',
-          borderRadius: '50px'
+        background: 'main.200',
+        borderRadius: '50px'
       }
-    }}
+    }
+  }
 });
 
 export default theme;

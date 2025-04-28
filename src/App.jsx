@@ -8,6 +8,8 @@ import Header from "./components/Header/Header";
 import ItemDetails from './pages/ItemDetails';
 import SearchResults from './pages/SearchResults';
 import Curtains from './components/Curtains/Curtains';
+import Footer from "./components/Footer/Footer"
+
 import { HOME_PAGE, MOVIES_PAGE, SHOWS_PAGE, DETAILS_PAGE, SEARCH_PAGE, PEOPLE_PAGE, PROVIDERS_PAGE } from './common/routes';
 
 import { Box } from "@chakra-ui/react";
@@ -22,8 +24,8 @@ function App() {
 
   return (
     <Box overflow="hidden" position="relative">
-      {firstLoad  && <Curtains />}
-      
+      {firstLoad && <Curtains />}
+
       <Header />
       <Routes>
         <Route path={HOME_PAGE} element={<Home />}></Route>
@@ -34,6 +36,7 @@ function App() {
         <Route path={DETAILS_PAGE} element={<ItemDetails />}></Route>
         <Route path={SEARCH_PAGE} element={<SearchResults />}></Route>
       </Routes>
+      <Footer />
     </Box>
   );
 }

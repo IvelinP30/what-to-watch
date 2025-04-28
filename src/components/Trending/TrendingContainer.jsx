@@ -108,9 +108,9 @@ const TrendingContainer = () => {
                     left={0}
                     right={0}
                     bottom={0}
-                    backgroundImage={`url(https://image.tmdb.org/t/p/original/${hoveredItem?.backdrop_path || hoveredItem?.profile_path})`}
+                    backgroundImage={`url(https://image.tmdb.org/t/p/original/${hoveredItem?.poster_path || hoveredItem?.profile_path})`}
                     backgroundSize={type === 'person' ? "fit" : "cover"}
-                    backgroundPosition="center center"
+                    backgroundPosition="center 40%"
                     backgroundRepeat={type === 'person' ? "repeat" : "no-repeat"}
                     transition="background-image 0.4s ease-in-out"
                     zIndex={0}
@@ -200,7 +200,7 @@ const TrendingContainer = () => {
         !loading
 
     return (
-        <Flex direction="column" gap="5rem" mt="150px" mb="150px">
+        <Flex direction="column" gap="5rem" mb="50px" bg="gray.800" borderRadius="xl" p={{ base: "20px", md: "50px" }} boxShadow="0px 20px 40px rgba(0, 0, 0, 0.5)">
             <Box
                 position='absolute'
                 bottom='20%'

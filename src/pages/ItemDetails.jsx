@@ -57,14 +57,14 @@ const ItemDetails = () => {
                 </Flex>
                 <Flex gap='4rem' width="100%" flexDirection={{ base: 'column', lg: 'row' }} >
                     <ItemInformation item={item} type={type} />
-                    <Flex width={{base: '100%', lg: "75%"}} flexBasis='80%' flexDirection='column' gap='2rem' zIndex='100'>
+                    <Flex width={{ base: '100%', lg: "75%" }} flexBasis='80%' flexDirection='column' gap='2rem' zIndex='100'>
                         <Trailer item={item} />
                         <Flex flexDirection='column' gap='5px'>
                             <Heading fontSize="2rem" mb="0.5rem" color='#e1e1e1'>Overview</Heading>
                             <Text color='#afafaf'>{item?.overview}</Text>
                         </Flex>
                         <Flex width="100%" justifyContent="flex-end">
-                            {(item.externalIds || item.homepage) &&  <SocialLinks externalIds={item.externalIds} homepage={item.homepage} />}
+                            {(item.externalIds || item.homepage) && <SocialLinks externalIds={item.externalIds} homepage={item.homepage} />}
                         </Flex>
                         <Box>
                             <Credits width="100%" creditsList={item.credits} />

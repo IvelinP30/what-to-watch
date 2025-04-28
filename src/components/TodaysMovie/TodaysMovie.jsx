@@ -21,7 +21,7 @@ const TodaysMovie = ({ movieOfTheDay }) => {
 
   return (
 
-    <Box as='section'>
+    <Box as='section' mb="120px" >
       <Box
         position='absolute'
         bottom='-60%'
