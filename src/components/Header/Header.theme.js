@@ -51,21 +51,21 @@ export const accountIcon = {
 }
 
 export const inputGroupStyles = {
-    width:{
+    width: {
         base: '70%',
         sm: '30%',
     }
 }
 
 export const inputStyles = {
-    variant:'flushed',
-    placeholder:"Search for movies, TV shows...",
-    size:'lg',
-    color:'main.100',
-    fontWeight:'bold',
-    focusBorderColor:'main.100',
-    _placeholder:{ 
-        color: 'gray.400' 
+    variant: 'flushed',
+    placeholder: "Search for movies, TV shows...",
+    size: 'lg',
+    color: 'main.100',
+    fontWeight: 'bold',
+    focusBorderColor: 'main.100',
+    _placeholder: {
+        color: 'gray.400'
     },
 }
 
@@ -87,7 +87,7 @@ export const navStyles = {
 }
 
 export const navLinkStyles = {
-    _hover:{
+    _hover: {
         color: 'main.100',
     },
 }

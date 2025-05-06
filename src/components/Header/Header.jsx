@@ -20,7 +20,7 @@ import {
 } from "./Header.theme"
 import { useState, useEffect } from "react"
 import useScrollListener from "../../hooks/useScrollListener"
-import { FaUserCircle } from "react-icons/fa"
+import { FaUserCircle, FaStar, FaBookmark } from "react-icons/fa"
 
 const Header = () => {
   const navigate = useNavigate();
@@ -128,7 +128,7 @@ const Header = () => {
           display={{ base: 'block', sm: 'none' }}
           position="absolute"
           top="2rem"
-          right="2rem"
+          left="2rem"
           zIndex="300"
         >
           <MenuButton
@@ -139,9 +139,34 @@ const Header = () => {
             {...accountIcon}
             _hover={{ color: "main.200" }}
           />
-          <MenuList>
-            <MenuItem _hover={{ bg: "main.100" }} onClick={() => navigate('/favourties')} fontSize='24px'>Favorites</MenuItem>
-            <MenuItem _hover={{ bg: "main.100" }} onClick={() => navigate('/watchlist')} fontSize='24px'>Watchlist</MenuItem>
+          <MenuList minW="auto" w="auto" >
+            <MenuItem _hover={{ bg: "main.200", transition: 'all 0.3s ease-in-out' }} onClick={() => navigate('/favourties')}>
+              <IconButton
+                aria-label="Watchlist"
+                icon={<FaBookmark />}
+                variant="ghost"
+                color='black'
+                fontSize="18px"
+                _hover={{
+                  color: 'yellow.200',
+                  transform: 'scale(1.05)',
+                  transition: 'all 0.3s ease-in-out',
+                }}
+              />
+            </MenuItem>
+            <MenuItem _hover={{ bg: "main.200", transition: 'all 0.3s ease-in-out' }} onClick={() => navigate('/watchlist')}>
+              <IconButton
+                aria-label="Favorite"
+                icon={<FaStar />}
+                variant="ghost"
+                color='black'
+                fontSize="20px"
+                _hover={{
+                  color: 'pink.300',
+                  transform: 'scale(1.05)',
+                  transition: 'all 0.3s ease-in-out',
+                }} />
+            </MenuItem>
           </MenuList>
         </Box>
 
