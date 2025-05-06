@@ -139,34 +139,17 @@ const Header = () => {
             {...accountIcon}
             _hover={{ color: "main.200" }}
           />
-          <MenuList minW="auto" w="auto" >
-            <MenuItem _hover={{ bg: "main.200", transition: 'all 0.3s ease-in-out' }} onClick={() => navigate('/favourties')}>
-              <IconButton
-                aria-label="Watchlist"
-                icon={<FaBookmark />}
-                variant="ghost"
-                color='black'
-                fontSize="18px"
-                _hover={{
-                  color: 'yellow.200',
-                  transform: 'scale(1.05)',
-                  transition: 'all 0.3s ease-in-out',
-                }}
-              />
+          <MenuList minW="auto" w="auto" p={2}>
+            <MenuItem borderRadius={8} _hover={{ bg: "main.100", color: 'white', transform: "scale(1.05)", transition: 'all 0.3s ease-in-out', }}
+              onClick={() => navigate('/favourites')} fontSize='24px' icon={<FaStar />}>
+              Favorites
             </MenuItem>
-            <MenuItem _hover={{ bg: "main.200", transition: 'all 0.3s ease-in-out' }} onClick={() => navigate('/watchlist')}>
-              <IconButton
-                aria-label="Favorite"
-                icon={<FaStar />}
-                variant="ghost"
-                color='black'
-                fontSize="20px"
-                _hover={{
-                  color: 'pink.300',
-                  transform: 'scale(1.05)',
-                  transition: 'all 0.3s ease-in-out',
-                }} />
+
+            <MenuItem borderRadius={8} _hover={{ bg: "main.100", color: 'white', transform: "scale(1.05)", transition: 'all 0.3s ease-in-out', }}
+              onClick={() => navigate('/watchlist')} fontSize='24px' icon={<FaBookmark />}>
+              Watchlist
             </MenuItem>
+
           </MenuList>
         </Box>
 
@@ -179,9 +162,15 @@ const Header = () => {
             {...accountIcon}
             _hover={{ color: "main.200" }}
           />
-          <MenuList minW="120px" w="120px">
-            <MenuItem _hover={{ bg: "main.100" }} onClick={() => navigate('/favourites')} fontSize='24px'>Favorites</MenuItem>
-            <MenuItem _hover={{ bg: "main.100" }} onClick={() => navigate('/watchlist')} fontSize='24px'>Watchlist</MenuItem>
+          <MenuList minW="auto" w="auto" p={2}>
+            <MenuItem borderRadius={8} _hover={{ bg: "main.100", color: 'white', transform: "scale(1.05)", transition: 'all 0.3s ease-in-out', }}
+              onClick={() => navigate('/favourites')} fontSize='24px' icon={<FaStar />}>
+              Favorites
+            </MenuItem>
+            <MenuItem borderRadius={8} _hover={{ bg: "main.100", color: 'white', transform: "scale(1.05)", transition: 'all 0.3s ease-in-out', }}
+              onClick={() => navigate('/watchlist')} fontSize='24px' icon={<FaBookmark />}>
+              Watchlist
+            </MenuItem>
           </MenuList>
         </Box>
       </Menu>

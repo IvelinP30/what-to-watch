@@ -59,9 +59,8 @@ const Movies = () => {
             flexDirection='row'
             height='100%'
             position='relative'
-            // overflow='hidden'
         >
-            
+
             <Box
                 position='absolute'
                 top='0'
@@ -73,7 +72,7 @@ const Movies = () => {
                 zIndex='0'
                 minHeight='200vh'
             />
-            
+
             {currentMovies.success !== false ?
                 <>
                     <FilterControlls
@@ -101,15 +100,15 @@ const Movies = () => {
                             noResults={noResults}
                         />
                         {currentMovies.length > 0 && (
-                        <Button 
-                            {...buttonStyles} 
-                            width="10rem" 
-                            margin="2rem 0" 
-                            isDisabled={currentMovies.length === numberOfMovies} 
-                            onClick={() => loadNextPage()}
-                        >
-                            <Text zIndex="1" color="#fff">Load More</Text>
-                        </Button>
+                            <Button
+                                {...buttonStyles}
+                                width="10rem"
+                                margin="2rem 0"
+                                isDisabled={currentMovies.length === numberOfMovies}
+                                onClick={() => loadNextPage()}
+                            >
+                                <Text zIndex="1" color="#fff">Load More</Text>
+                            </Button>
                         )}
                     </Flex>
                 </>

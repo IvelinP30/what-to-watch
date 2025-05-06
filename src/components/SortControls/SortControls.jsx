@@ -1,6 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react"
 
-const SortControlls = ({setPageNumber, setCurrentItems, setItemsSort, itemsSort}) => {
+const SortControlls = ({ setPageNumber, setCurrentItems, setItemsSort, itemsSort }) => {
 
     const changeSortOrder = (e) => {
         if (e.target.id !== itemsSort) {

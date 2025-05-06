@@ -18,7 +18,8 @@ import {
     DrawerCloseButton,
     DrawerHeader,
     DrawerBody,
-    useDisclosure
+    useDisclosure,
+    Divider
 
 } from "@chakra-ui/react";
 
@@ -53,7 +54,7 @@ const FilterControlls = ({ setPageNumber, setCurrentItems, setItemsFilter }) => 
 
     const toggleGenre = (e) => {
         const genreId = Object.keys(genres).find(key => genres[key].genre === e.target.innerText);
-        
+
         if (selectedGeneres.includes(genreId)) {
             setSelectedGeneres(currentGenres => currentGenres.filter(genre => genre !== genreId))
         } else {
@@ -70,30 +71,32 @@ const FilterControlls = ({ setPageNumber, setCurrentItems, setItemsFilter }) => 
     return (
         <>
 
-            <Button ref={btnRef} onClick={onOpen}   
-                border= '0'
-                position= 'fixed'
-                backgroundColor= 'main.100'
-                color= '#fff'
+            <Button
+                ref={btnRef}
+                onClick={onOpen}
+                border='0'
+                position='fixed'
+                backgroundColor='main.100'
+                color='#fff'
                 bottom='200px'
-                overflow= "hidden"
-                boxShadow=  '1px 1px 50px -11px rgba(0,0,0,0.75)'
-                borderRadius= '0 40px 40px 0'
-                zIndex= '100'
+                overflow="hidden"
+                boxShadow='1px 1px 50px -11px rgba(0,0,0,0.75)'
+                borderRadius='0 40px 40px 0'
+                zIndex='100'
                 display={{ base: 'flex', md: 'none' }}
-                _before= {{
-                position: "absolute",
-                content: `""`,
-                width: "100%",
-                height: "100%",
-                backgroundColor: 'secondary.100',
-                transition: 'transform 500ms ease-in-out',
-                transform: 'scaleX(0)',
-                transformOrigin: 'left',
-                
+                _before={{
+                    position: "absolute",
+                    content: `""`,
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: 'secondary.100',
+                    transition: 'transform 500ms ease-in-out',
+                    transform: 'scaleX(0)',
+                    transformOrigin: 'left',
+
                 }}
-                _hover= {{
-                    _before: {transform: 'scaleX(1)' }
+                _hover={{
+                    _before: { transform: 'scaleX(1)' }
                 }}>
                 <Text zIndex='1' color='#fff'>Categories & Filters</Text>
             </Button >
@@ -107,131 +110,129 @@ const FilterControlls = ({ setPageNumber, setCurrentItems, setItemsFilter }) => 
             >
                 <DrawerOverlay />
                 <DrawerContent backgroundColor='background.100'>
-                <DrawerCloseButton backgroundColor='main.100' color='#fff' top='0' right='0' borderRadius='0 0 0 10px'/>
-                <DrawerHeader color='#fff'>Categories & Filters</DrawerHeader>
-
-                <DrawerBody padding='0'>
-                <Accordion 
-                allowMultiple
-                index={[0,1,2]}
-                flexDirection='column'
-                position='sticky'
-                top='10rem'
-                width='100%'
-                alignSelf='flex-start'
-                zIndex='100'
-            >
-                <AccordionItem>
-                    <h2>
-                        <AccordionButton>
-                            <Box as="span" flex='1' textAlign='left' color='#fff' fontWeight='bold'>
-                                Year
-                            </Box>
-                        </AccordionButton>
-                    </h2>
-                    <AccordionPanel padding='1rem 2rem'>
-                        <RangeSlider
-                            aria-label={['min', 'max']}
-                            defaultValue={[1901, 2025]}
-                            min={1901}
-                            max={2025}
-                            onChange={(val) => { setMinYearValue(val[0]); setMaxYearValue(val[1]); }}
-                            onChangeEnd={() => changeYearRange()}
-                        >
-                            <RangeSliderTrack height='.5rem' borderRadius='30px'>
-                                <RangeSliderFilledTrack backgroundColor='main.100' />
-                            </RangeSliderTrack>
-                            <RangeSliderThumb index={0} value={minYearValue} textAlign='center'
-                                backgroundColor='main.100'
-                                color='white'
-
-
-                            ><Text fontSize='xs' margin='0 0 2.5rem -2rem'>{minYearValue}</Text></RangeSliderThumb>
-                            <RangeSliderThumb index={1} value={maxYearValue} textAlign='center'
-                                backgroundColor='main.100'
-                                color='white'
-                            ><Text fontSize='xs' margin='0 0 2.5rem 2rem'>{minYearValue === maxYearValue ? '' : maxYearValue}</Text></RangeSliderThumb>
-                        </RangeSlider>
-                    </AccordionPanel>
-                </AccordionItem>
-                <AccordionItem >
-                    <h2>
-                        <AccordionButton>
-                            <Box as="span" flex='1' textAlign='left' color='#fff' fontWeight='bold'>
-                                Score
-                            </Box>
-                        </AccordionButton>
-                    </h2>
-                    <AccordionPanel padding='1rem 2rem'>
-                        <RangeSlider
-                            aria-label={['min', 'max']}
-                            defaultValue={[1, 10]}
-                            min={1}
-                            max={10}
-                            onChange={(val) => { setMinScoreValue(val[0]); setMaxScoreValue(val[1]); }}
-                            onChangeEnd={() => changeScoreRange()}
-                        >
-                            <RangeSliderTrack height='.5rem' borderRadius='30px'>
-                                <RangeSliderFilledTrack backgroundColor='main.100' />
-                            </RangeSliderTrack>
-                            <RangeSliderThumb index={0} value={minScoreValue} textAlign='center'
-                                backgroundColor='main.100'
-                                color='white'
-
-
-                            ><Text fontSize='xs' margin='0 0 2.5rem 0'>{minScoreValue}</Text></RangeSliderThumb>
-                            <RangeSliderThumb index={1} value={maxScoreValue} textAlign='center'
-                                backgroundColor='main.100'
-                                color='white'
-                            ><Text fontSize='xs' margin='0 0 2.5rem 0'>{minScoreValue === maxScoreValue ? '' : maxScoreValue}</Text></RangeSliderThumb>
-                        </RangeSlider>
-                    </AccordionPanel>
-                </AccordionItem>
-                <AccordionItem >
-                    <h2>
-                        <AccordionButton backgroundColor='background.200'>
-                            <Box as="span" flex='1' textAlign='left' color='#fff' fontWeight='bold'>
-                                Genre
-                            </Box>
-                        </AccordionButton>
-                    </h2>
-                    <AccordionPanel padding='0'>
-                        <Flex
+                    <DrawerCloseButton backgroundColor='main.100' color='#fff' top='0' right='0' borderRadius='0 0 0 10px' />
+                    <DrawerHeader color='#fff'>Categories & Filters</DrawerHeader>
+                    <Divider />
+                    <DrawerBody padding='0'>
+                        <Accordion
+                            allowMultiple
+                            index={[0, 1, 2]}
                             flexDirection='column'
-                            maxHeight='200px'
-                            overflowY='scroll'
-                            sx={{
-                                "::-webkit-scrollbar": {
-                                    width: "10px",
-                                },
-                                "::-webkit-scrollbar-track": {
-                                    background: 'main.100',
-                                    borderRadius: '3px'
-                                },
-                                "::-webkit-scrollbar-thumb": {
-                                    background: 'main.200',
-                                    borderRadius: '3px'
-                                }
-                            }}
+                            position='sticky'
+                            top="1rem"
+                            width='100%'
+                            alignSelf='flex-start'
+                            zIndex='100'
                         >
-                            {
+                            <AccordionItem>
+                                <h2>
+                                    <AccordionButton backgroundColor='background.200' cursor="default" _hover={{ backgroundColor: 'background.200' }} mb={5}>
+                                        <Box as="span" flex='1' textAlign='left' color='#fff' fontWeight='bold'>
+                                            Year
+                                        </Box>
+                                    </AccordionButton>
+                                </h2>
+                                <AccordionPanel padding='1rem 2rem'>
+                                    <RangeSlider
+                                        aria-label={['min', 'max']}
+                                        defaultValue={[1901, 2025]}
+                                        min={1901}
+                                        max={2025}
+                                        onChange={(val) => { setMinYearValue(val[0]); setMaxYearValue(val[1]); }}
+                                        onChangeEnd={() => changeYearRange()}
+                                    >
+                                        <RangeSliderTrack height='.5rem' borderRadius='30px'>
+                                            <RangeSliderFilledTrack backgroundColor='main.100' />
+                                        </RangeSliderTrack>
+                                        <RangeSliderThumb index={0} value={minYearValue} textAlign='center'
+                                            backgroundColor='main.100'
+                                            color='white'
 
-                                Object.values(genres).map(genre => (<Box key={genre.id} width='100%' padding='0.5rem 2rem' cursor='pointer' color='#fff' marginTop='0.2rem' _hover={{ 'backgroundColor': '#5e5d5d' }} backgroundColor={selectedGeneres.includes(genre.id.toString()) ? 'main.100' : 'none'} onClick={(e) => toggleGenre(e)}>{genre.genre}</Box>))
-                            }
+
+                                        ><Text fontSize='xs' margin='0 0 2.5rem -2rem'>{minYearValue}</Text></RangeSliderThumb>
+                                        <RangeSliderThumb index={1} value={maxYearValue} textAlign='center'
+                                            backgroundColor='main.100'
+                                            color='white'
+                                        ><Text fontSize='xs' margin='0 0 2.5rem 2rem'>{minYearValue === maxYearValue ? '' : maxYearValue}</Text></RangeSliderThumb>
+                                    </RangeSlider>
+                                </AccordionPanel>
+                            </AccordionItem>
+                            <AccordionItem >
+                                <h2>
+                                    <AccordionButton backgroundColor='background.200' cursor="default" _hover={{ backgroundColor: 'background.200' }} mb={5}>
+                                        <Box as="span" flex='1' textAlign='left' color='#fff' fontWeight='bold'>
+                                            Score
+                                        </Box>
+                                    </AccordionButton>
+                                </h2>
+                                <AccordionPanel padding='1rem 2rem'>
+                                    <RangeSlider
+                                        aria-label={['min', 'max']}
+                                        defaultValue={[1, 10]}
+                                        min={1}
+                                        max={10}
+                                        onChange={(val) => { setMinScoreValue(val[0]); setMaxScoreValue(val[1]); }}
+                                        onChangeEnd={() => changeScoreRange()}
+                                    >
+                                        <RangeSliderTrack height='.5rem' borderRadius='30px'>
+                                            <RangeSliderFilledTrack backgroundColor='main.100' />
+                                        </RangeSliderTrack>
+                                        <RangeSliderThumb index={0} value={minScoreValue} textAlign='center'
+                                            backgroundColor='main.100'
+                                            color='white'
 
 
-                        </Flex>
-                    </AccordionPanel>
-                </AccordionItem>
+                                        ><Text fontSize='xs' margin='0 0 2.5rem 0'>{minScoreValue}</Text></RangeSliderThumb>
+                                        <RangeSliderThumb index={1} value={maxScoreValue} textAlign='center'
+                                            backgroundColor='main.100'
+                                            color='white'
+                                        ><Text fontSize='xs' margin='0 0 2.5rem 0'>{minScoreValue === maxScoreValue ? '' : maxScoreValue}</Text></RangeSliderThumb>
+                                    </RangeSlider>
+                                </AccordionPanel>
+                            </AccordionItem>
+                            <AccordionItem >
+                                <h2>
+                                    <AccordionButton backgroundColor='background.200' cursor="default" _hover={{ backgroundColor: 'background.200' }} mb={2}>
+                                        <Box as="span" flex='1' textAlign='left' color='#fff' fontWeight='bold'>
+                                            Genre
+                                        </Box>
+                                    </AccordionButton>
+                                </h2>
+                                <AccordionPanel padding='0'>
+                                    <Flex
+                                        flexDirection='column'
+                                        maxHeight='400px'
+                                        overflowY='scroll'
+                                        sx={{
+                                            "::-webkit-scrollbar": {
+                                                width: "10px",
+                                            },
+                                            "::-webkit-scrollbar-track": {
+                                                background: 'main.100',
+                                                borderRadius: '3px'
+                                            },
+                                            "::-webkit-scrollbar-thumb": {
+                                                background: 'main.200',
+                                                borderRadius: '3px'
+                                            }
+                                        }}
+                                    >
+                                        {
 
-            </Accordion>
-                </DrawerBody>
+                                            Object.values(genres).map(genre => (<Box key={genre.id} width='100%' padding='0.5rem 2rem' cursor='pointer' color='#fff' marginTop='0.2rem' _hover={{ 'backgroundColor': '#5e5d5d' }} backgroundColor={selectedGeneres.includes(genre.id.toString()) ? 'main.100' : 'none'} onClick={(e) => toggleGenre(e)}>{genre.genre}</Box>))
+                                        }
+                                    </Flex>
+                                </AccordionPanel>
+                            </AccordionItem>
+
+                        </Accordion>
+                    </DrawerBody>
 
 
                 </DrawerContent>
             </Drawer>
 
-            <Accordion 
+            <Accordion
                 allowMultiple
                 flexDirection='column'
                 position='sticky'
@@ -342,9 +343,12 @@ const FilterControlls = ({ setPageNumber, setCurrentItems, setItemsFilter }) => 
                         >
                             {
 
-                                Object.values(genres).map(genre => (<Box key={genre.id} width='100%' padding='0.5rem 2rem' cursor='pointer' color='#fff' marginTop='0.2rem' _hover={{ 'backgroundColor': '#5e5d5d' }} backgroundColor={selectedGeneres.includes(genre.id.toString()) ? 'main.100' : 'none'} onClick={(e) => toggleGenre(e)}>{genre.genre}</Box>))
+                                Object.values(genres).map(genre => (
+                                    <Box key={genre.id} width='100%' padding='0.5rem 2rem' cursor='pointer' color='#fff' marginTop='0.2rem' _hover={{ 'backgroundColor': '#5e5d5d' }} backgroundColor={selectedGeneres.includes(genre.id.toString()) ? 'main.100' : 'none'} onClick={(e) => toggleGenre(e)}>{genre.genre}
+                                    </Box>
+                                ))
                             }
-                            
+
                         </Flex>
                     </AccordionPanel>
                 </AccordionItem>

@@ -215,3 +215,58 @@ export const getTrendingItems = async (type, timeWindow) => {
         return { success: false }
     }
 }
+
+export const getPeople = async (startPage = 1, filters = {}, minCount = 5, excludeIds = new Set()) => {
+    let filteredPeople = [];
+    let currentPage = startPage;
+    let totalResults = 0;
+    const maxPages = 500;
+
+    try {
+        while (filteredPeople.length < minCount && currentPage <= maxPages) {
+            const response = await fetch(
+                `${baseURL}/person/popular?language=en-US&page=${currentPage}`,
+                optionsGet
+            );
+            const data = await response.json();
+
+            if (data.success === false) return data;
+
+            totalResults = data.total_results;
+            const allPeople = data.results;
+
+            const genderNumbers = (filters.genders || []).map(g => {
+                if (g.toLowerCase() === "female") return 1;
+                if (g.toLowerCase() === "male") return 2;
+                return 0;
+            });
+
+            const newFilteredPeople = allPeople.filter(person => {
+                const genderMatches =
+                    genderNumbers.length === 0 || genderNumbers.includes(person.gender);
+
+                const departmentMatches =
+                    !filters.departments?.length ||
+                    filters.departments.includes(person.known_for_department);
+
+                return genderMatches && departmentMatches && !excludeIds.has(person.id);
+            });
+
+            newFilteredPeople.forEach(p => excludeIds.add(p.id));
+            filteredPeople.push(...newFilteredPeople);
+
+            if (filteredPeople.length < minCount) currentPage++;
+            if (allPeople.length === 0) break;
+        }
+
+        return {
+            success: true,
+            people: filteredPeople,
+            totalPeople: totalResults,
+            nextPageToUse: currentPage
+        };
+    } catch (error) {
+        console.error('Error fetching people:', error);
+        return { success: false };
+    }
+}
