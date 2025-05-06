@@ -35,6 +35,7 @@ const genders = ["Male", "Female"];
 const PeopleFilterControls = ({ setPageNumber, setCurrentItems, setItemsFilter }) => {
     const [selectedGenders, setSelectedGenders] = useState(genders);
     const [selectedDepartments, setSelectedDepartments] = useState([]);
+    const allSelectedGenders = selectedGenders.length === 0;
 
     useEffect(() => {
         setItemsFilter({ genders: selectedGenders, departments: selectedDepartments });
@@ -54,13 +55,19 @@ const PeopleFilterControls = ({ setPageNumber, setCurrentItems, setItemsFilter }
         setCurrentItems([]);
     };
 
-
     const toggleGender = (gender) => {
-        setSelectedGenders(current =>
-            current.includes(gender)
+        setSelectedGenders(current => {
+            let updated = current.includes(gender)
                 ? current.filter(g => g !== gender)
-                : [...current, gender]
-        );
+                : [...current, gender];
+
+            if (updated.length === 0) {
+                updated = [...genders];
+            }
+
+            return updated;
+        });
+
         setPageNumber(1);
         setCurrentItems([]);
     };
@@ -137,7 +144,7 @@ const PeopleFilterControls = ({ setPageNumber, setCurrentItems, setItemsFilter }
                                                 cursor="pointer"
                                                 key={gender}
                                                 onClick={() => toggleGender(gender)}
-                                                bg={selectedGenders.includes(gender) ? 'main.100' : 'gray.600'}
+                                                bg={allSelectedGenders || selectedGenders.includes(gender) ? 'main.100' : 'gray.600'}
                                                 color='white'
                                                 _hover={{ bg: 'main.200' }}
                                                 borderRadius='20px'
@@ -225,7 +232,7 @@ const PeopleFilterControls = ({ setPageNumber, setCurrentItems, setItemsFilter }
                                     cursor="pointer"
                                     key={gender}
                                     onClick={() => toggleGender(gender)}
-                                    bg={selectedGenders.includes(gender) ? 'main.100' : 'gray.600'}
+                                    bg={allSelectedGenders || selectedGenders.includes(gender) ? 'main.100' : 'gray.600'}
                                     color='white'
                                     _hover={{ bg: 'main.200' }}
                                     borderRadius='20px'
