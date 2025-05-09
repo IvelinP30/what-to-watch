@@ -7,7 +7,7 @@ import {
 } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
 
-const PersonCard = ({ item }) => {
+const PersonCard = ({ person }) => {
     const navigate = useNavigate();
     return (
         <Card
@@ -19,11 +19,11 @@ const PersonCard = ({ item }) => {
             width='300px'
             height='300px'
             cursor='pointer'
-            onClick={() => navigate(`/person/details/${item.id}`)}
+            onClick={() => navigate(`/person/details/${person.id}`)}
         >
             <Image
                 position='absolute'
-                src={`https://image.tmdb.org/t/p/original/${item?.profile_path}`}
+                src={`https://image.tmdb.org/t/p/original/${person?.profile_path}`}
                 objectFit='cover'
                 objectPosition='center center'
                 filter='brightness(80%)'
@@ -37,8 +37,8 @@ const PersonCard = ({ item }) => {
 
             />
             <Flex flexDirection='row' padding='1rem' justifyContent='space-between' gap='1rem'>
-                <Heading size='md' position='relative'>
-                    {item?.name || item?.original_name}
+                <Heading fontSize="1.5rem" position='relative'>
+                    {person?.name || person?.original_name}
                 </Heading>
                 <Text
                     position='absolute'
@@ -54,7 +54,7 @@ const PersonCard = ({ item }) => {
                     fontSize='lg'
                 >
                     {
-                        item?.known_for_department ?? 'N/A'
+                        person?.known_for_department ?? 'N/A'
                     }
                 </Text>
             </Flex>

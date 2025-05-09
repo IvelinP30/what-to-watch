@@ -270,3 +270,17 @@ export const getPeople = async (startPage = 1, filters = {}, minCount = 5, exclu
         return { success: false };
     }
 }
+
+export const getPersonCombinedCredits = async (id) => {
+    try {
+        const response = await fetch(
+            `${baseURL}/person/${id}/combined_credits`,
+            optionsGet
+        )
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        return { success: false }
+    }
+}

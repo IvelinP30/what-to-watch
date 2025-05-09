@@ -121,7 +121,8 @@ const TrendingContainer = () => {
                     p="2rem"
                     position="relative"
                     zIndex={1}
-                    bg="rgba(0,0,0,0.7)"
+                    bg="rgba(0,0,0,0.6)"
+                    backdropFilter="blur(2px)"
                 >
                     <Flex gap="2rem">
                         <Heading fontSize="2.5rem" mb="0.5rem" color="#e1e1e1">{title}</Heading>

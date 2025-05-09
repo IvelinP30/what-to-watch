@@ -5,7 +5,8 @@ import {
     FaInstagram,
     FaTwitter,
     FaWikipediaW,
-    FaHome
+    FaHome,
+    FaTiktok
 } from 'react-icons/fa';
 
 const SOCIAL_LINKS = [
@@ -39,6 +40,12 @@ const SOCIAL_LINKS = [
         icon: FaWikipediaW,
         url: (id) => `https://www.wikidata.org/wiki/${id}`
     },
+    {
+        id: 'tiktok_id',
+        label: 'Visit TikTok',
+        icon: FaTiktok,
+        url: (id) => `https://www.tiktok.com/@${id}`
+    }
 ];
 
 const SocialLinks = ({ externalIds, homepage }) => {

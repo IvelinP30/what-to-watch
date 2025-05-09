@@ -32,14 +32,14 @@ const departments = [
 
 const genders = ["Male", "Female"];
 
-const PeopleFilterControls = ({ setPageNumber, setCurrentItems, setItemsFilter }) => {
+const PeopleFilterControls = ({ setPageNumber, setCurrentPeople, setPeopleFilter }) => {
     const [selectedGenders, setSelectedGenders] = useState(genders);
     const [selectedDepartments, setSelectedDepartments] = useState([]);
     const allSelectedGenders = selectedGenders.length === 0;
 
     useEffect(() => {
-        setItemsFilter({ genders: selectedGenders, departments: selectedDepartments });
-    }, [selectedGenders, selectedDepartments, setItemsFilter]);
+        setPeopleFilter({ genders: selectedGenders, departments: selectedDepartments });
+    }, [selectedGenders, selectedDepartments, setPeopleFilter]);
 
 
     const toggleDepartment = (dept) => {
@@ -52,7 +52,7 @@ const PeopleFilterControls = ({ setPageNumber, setCurrentItems, setItemsFilter }
         });
 
         setPageNumber(1);
-        setCurrentItems([]);
+        setCurrentPeople([]);
     };
 
     const toggleGender = (gender) => {
@@ -69,7 +69,7 @@ const PeopleFilterControls = ({ setPageNumber, setCurrentItems, setItemsFilter }
         });
 
         setPageNumber(1);
-        setCurrentItems([]);
+        setCurrentPeople([]);
     };
 
 

@@ -1,15 +1,15 @@
 import { Flex, Text, Spinner } from "@chakra-ui/react"
 import PersonCard from "../People/PersonCard"
 
-const PeopleGrid = ({ currentItems = [], noResults }) => {
+const PeopleGrid = ({ currentPeople = [], noResults }) => {
     return (
         <Flex flexWrap='wrap'>
             {
-                currentItems.length > 0 && !noResults ?
-                    currentItems?.map(item => {
-                        return <PersonCard item={item} key={item.id} />
+                currentPeople.length > 0 && !noResults ?
+                    currentPeople?.map(person => {
+                        return <PersonCard person={person} key={person.id} />
                     })
-                    : currentItems.length === 0 && noResults ?
+                    : currentPeople.length === 0 && noResults ?
                         <Text
                             fontSize='2xl'
                             margin='200px auto'

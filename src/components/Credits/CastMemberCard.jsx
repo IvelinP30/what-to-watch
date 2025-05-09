@@ -6,8 +6,11 @@ import {
     Stack,
     Text
 } from "@chakra-ui/react"
+import { useNavigate } from "react-router-dom"
 
 const CastMemberCard = ({ castMember }) => {
+    const navigate = useNavigate();
+
     return (
         <Card
             minW="170px"
@@ -20,6 +23,7 @@ const CastMemberCard = ({ castMember }) => {
             cursor='pointer'
             _hover={{ transform: 'scale(1.03)' }}
             transition='transform .5s'
+            onClick={() => navigate(`/person/details/${castMember.id}`)}
         >
             <CardBody padding="0">
                 <Image

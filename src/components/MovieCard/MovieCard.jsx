@@ -18,6 +18,8 @@ const MovieCard = ({ item, type = 'movie' }) => {
             borderRadius='0'
             width='300px'
             height='300px'
+            minWidth='300px'
+            minHeight='300px'
             cursor='pointer'
             onClick={() => navigate(`/${type}/details/${item.id}`)}
         >
@@ -37,7 +39,7 @@ const MovieCard = ({ item, type = 'movie' }) => {
 
             />
             <Flex flexDirection='row' padding='1rem' justifyContent='space-between' gap='1rem'>
-                <Heading size='md' position='relative'>
+                <Heading fontSize="1.5rem" position='relative'>
                     {type === 'movie'
                         ? (item?.title || item?.original_name)
                         : (item?.name || item?.original_name)} ({item.release_date?.slice(0, 4) || item.first_air_date?.slice(0, 4)})

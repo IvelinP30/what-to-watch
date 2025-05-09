@@ -74,8 +74,8 @@ const People = () => {
                 <>
                     <PeopleFilterControls
                         setPageNumber={setNextPageToUse}
-                        setCurrentItems={setCurrentPeople}
-                        setItemsFilter={setPeopleFilter}
+                        setCurrentPeople={setCurrentPeople}
+                        setPeopleFilter={setPeopleFilter}
                     />
 
                     <Flex flexDirection='column' position='relative' margin={{ base: '20rem 1rem 1rem 1rem', lg: '13rem 2rem 2rem 2rem' }} color='#fff' width={{ base: '100%', lg: '80%' }}>
@@ -86,7 +86,7 @@ const People = () => {
                             Explore the most talked-about actors, directors, and creators dominating the entertainment world right now.
                         </Text>
                         <PeopleGrid
-                            currentItems={currentPeople}
+                            currentPeople={currentPeople}
                             noResults={noResults}
                         />
                         {(currentPeople.length > 0 && loading) && (
