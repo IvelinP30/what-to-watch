@@ -284,3 +284,31 @@ export const getPersonCombinedCredits = async (id) => {
         return { success: false }
     }
 }
+
+export const getMoviesWatchProviders = async () => {
+    try {
+        const response = await fetch(
+            `${baseURL}/watch/providers/movie?language=en-US&watch_region=US`,
+            optionsGet
+        )
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        return { success: false }
+    }
+}
+
+export const getShowsWatchProviders = async () => {
+    try {
+        const response = await fetch(
+            `${baseURL}/watch/providers/tv?language=en-US&watch_region=US`,
+            optionsGet
+        )
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        return { success: false }
+    }
+}

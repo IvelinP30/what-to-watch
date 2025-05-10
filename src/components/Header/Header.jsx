@@ -53,7 +53,8 @@ const Header = () => {
       style={show ? { ...active } : { ...hidden }}
       justify="space-between"
       align="center"
-      px={4}>
+      px={4}
+      backdropFilter="blur(3px)">
       <ChakraLink
         as={RouterLink}
         to={HOME_PAGE}
@@ -91,7 +92,7 @@ const Header = () => {
             onChange={handleChange}
             value={searchQuery}
             onKeyDown={handleEnter}
-            placeholder="Search for movies, TV shows..."
+            placeholder="Search for movies, TV shows, people..."
           />
           <InputRightElement>
             <Search2Icon
