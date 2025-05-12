@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { getItem, getItemCredits, getItemExternalIds, getItemProviders, getItemTrailer, getSimilarItems } from "../services/data";
+import { getItem, getItemCredits, getItemExternalIds, getItemMedia, getItemProviders, getItemTrailer, getSimilarItems } from "../services/data";
 import { Box, Flex, Text, Heading } from "@chakra-ui/react";
 
 import SimilarItems from "../components/SimilarItems/SimilarItems";
@@ -10,6 +10,7 @@ import SocialLinks from "../components/SocialLinks/SocialLinks";
 import Credits from "../components/Credits/Credits"
 import FavoriteWatchLaterButtons from "../components/FavoriteWatchLaterButtons/FavoriteWatchLaterButtons";
 import LastSeasonCard from "../components/LastSeasonCard/LastSeasonCard";
+import Media from "../components/Media/Media"
 
 const ItemDetails = () => {
     const { id, type } = useParams();
@@ -23,7 +24,8 @@ const ItemDetails = () => {
             const similar = await getSimilarItems(id, type);
             const externalIds = await getItemExternalIds(id, type);
             const credits = await getItemCredits(id, type);
-            setitem({ ...movieData, providers, trailer, similar, externalIds, credits });
+            const mediaData = await getItemMedia(id, type)
+            setitem({ ...movieData, providers, trailer, similar, externalIds, credits, mediaData });
         }
         fetchMovie();
     }, [id, type]);
@@ -64,7 +66,7 @@ const ItemDetails = () => {
                 height='50%'
                 zIndex='0'
             />
-            <Flex gap='1rem' padding={{ base: '15rem 0', sm: '12rem 0', xs: '20rem 0' }} margin='0 2rem' flexDirection='column' >
+            <Flex gap='1rem' padding={{ base: '15rem 0', sm: '12rem 0', xs: '25rem 0' }} margin='0 2rem' flexDirection='column' >
                 <Flex width="99%" justifyContent="flex-end">
                     <FavoriteWatchLaterButtons />
                 </Flex>
@@ -87,6 +89,9 @@ const ItemDetails = () => {
                         )}
                         <Box>
                             <Credits width="100%" creditsList={item.credits} />
+                        </Box>
+                        <Box>
+                            <Media mediaData={item.mediaData} />
                         </Box>
                         <SimilarItems item={item} type={type} />
                     </Flex>

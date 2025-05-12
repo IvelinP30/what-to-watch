@@ -95,11 +95,11 @@ const Providers = () => {
             <Flex
                 flexDirection='column'
                 position='relative'
-                margin={{ base: '20rem 1rem 1rem 1rem', lg: '13rem 2rem 2rem 2rem' }}
+                margin={{ base: '25rem 1rem 1rem 1rem', lg: '13rem 2rem 2rem 2rem' }}
                 color='#fff'
                 width={{ base: '100%', lg: '80%' }}
             >
-                <Text as='h1' fontSize={{ base: '3xl', lg: '3.5rem' }} fontWeight='bold' marginBottom='-10px'>
+                <Text as='h1' fontSize={{ base: '3xl', lg: '3.5rem' }} fontWeight='bold'>
                     Top Streaming Providers for Movies & TV Shows
                 </Text>
                 <Text as="p" fontSize={{ base: 'lg', lg: 'xl' }} color="gray.300" marginBottom="40px">

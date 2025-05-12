@@ -312,3 +312,58 @@ export const getShowsWatchProviders = async () => {
         return { success: false }
     }
 }
+
+export const getItemMedia = async (id, type) => {
+    try {
+        const [responseImages, responseVideos] = await Promise.all([
+            fetch(`${baseURL}/${type}/${id}/images`, optionsGet),
+            fetch(`${baseURL}/${type}/${id}/videos`, optionsGet)
+        ]);
+
+        if (!responseImages.ok || !responseVideos.ok) {
+            throw new Error('Failed to fetch media data');
+        }
+
+        const imagesData = await responseImages.json();
+        const videosData = await responseVideos.json();
+
+        const combinedMedia = [
+            ...videosData.results.map((video) => ({
+                type: 'video',
+                name: video.name,
+                key: video.key,
+                site: video.site,
+                size: video.size,
+                published_at: video.published_at,
+                official: video.official
+            })),
+            ...imagesData.backdrops.map((image) => ({
+                type: 'image',
+                url: `https://image.tmdb.org/t/p/w342${image.file_path}`,
+                width: image.width,
+                height: image.height,
+                aspect_ratio: image.aspect_ratio,
+                vote_average: image.vote_average
+            }))
+        ];
+
+        const sortedMedia = combinedMedia.sort((a, b) => {
+            if (a.type === 'video' && b.type !== 'video') return -1;
+            if (a.type !== 'video' && b.type === 'video') return 1;
+
+            if (a.type === 'video' && b.type === 'video') {
+                return new Date(b.published_at) - new Date(a.published_at);
+            }
+
+            return b.width - a.width;
+        });
+
+        return {
+            success: true,
+            media: sortedMedia
+        };
+    } catch (error) {
+        console.error('Error fetching media:', error);
+        return { success: false, error: error.message };
+    }
+};

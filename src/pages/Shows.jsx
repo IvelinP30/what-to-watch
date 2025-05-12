@@ -82,8 +82,8 @@ const Shows = () => {
                 setItemsFilter={setShowsFilter}
 
             />
-            <Flex flexDirection='column' position='relative' margin={{ base: '20rem 1rem 1rem 1rem', lg: '13rem 2rem 2rem 2rem' }} color='#fff' width={{ base: '100%', lg: '80%' }}>
-                <Text as='h1' fontSize={{ base: '3xl', lg: '3.5rem' }} fontWeight='bold' marginBottom='-10px'>The most popular TV Shows to watch</Text>
+            <Flex flexDirection='column' position='relative' margin={{ base: '25rem 1rem 1rem 1rem', lg: '13rem 2rem 2rem 2rem' }} color='#fff' width={{ base: '100%', lg: '80%' }}>
+                <Text as='h1' fontSize={{ base: '3xl', lg: '3.5rem' }} fontWeight='bold'>The most popular TV Shows to watch</Text>
                 <Text as="p" fontSize={{ base: 'lg', lg: 'xl' }} color="gray.300" marginBottom="40px">
                     Discover best TV Shows by sorting and filtering through ratings, release date, and genres.
                 </Text>

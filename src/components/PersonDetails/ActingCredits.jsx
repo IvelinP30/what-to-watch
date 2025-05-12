@@ -40,8 +40,14 @@ const ActingCredits = ({ credits }) => {
         .sort((a, b) => b - a);
 
     return (
-        <Box mt={10}>
-            <Heading fontSize="2rem" color="#e1e1e1" mb="2rem">
+        <Box
+            mt={10}
+            p={10}
+            borderRadius="2xl"
+            bg="rgba(255, 255, 255, 0.05)"
+            backdropFilter="blur(10px)"
+        >
+            <Heading fontSize="2rem" ml={-5} color="#e1e1e1" mb="2rem">
                 Acting Credits
             </Heading>
 
@@ -59,6 +65,7 @@ const ActingCredits = ({ credits }) => {
                                 mb={2}
                                 bg={bgColor}
                                 border="1px solid"
+                                transition="background 0.3s ease, color 0.3s ease"
                                 borderColor={borderColor}
                             >
                                 <Box flex="1" textAlign="left" fontWeight="bold" fontSize="lg" color="inherit">

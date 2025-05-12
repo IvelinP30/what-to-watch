@@ -7,7 +7,7 @@ import Biography from "../components/PersonDetails/Biography";
 import PersonalInfo from "../components/PersonDetails/PersonalInfo";
 import FavoriteWatchLaterButtons from "../components/FavoriteWatchLaterButtons/FavoriteWatchLaterButtons";
 
-const ItemDetails = () => {
+const PersonDetails = () => {
     const { id } = useParams();
     const [person, setPerson] = useState({});
     const [loading, setLoading] = useState(true);
@@ -21,16 +21,16 @@ const ItemDetails = () => {
                 const combinedCredits = await getPersonCombinedCredits(id);
                 const knownFor = combinedCredits?.cast
                     ? [...combinedCredits.cast]
-                        .filter(item =>
-                            (item.media_type === 'movie' || item.media_type === 'tv') && !item.adult
+                        .filter(credit =>
+                            (credit.media_type === 'movie' || credit.media_type === 'tv') && !credit.adult
                         )
                         .sort((a, b) => {
                             const aScore = a.popularity * 2 + a.vote_average * a.vote_count;
                             const bScore = b.popularity * 2 + b.vote_average * b.vote_count;
                             return bScore - aScore;
                         })
-                        .filter((item, index, self) => {
-                            const key = item.title || item.name;
+                        .filter((credit, index, self) => {
+                            const key = credit.title || credit.name;
                             return index === self.findIndex(i => (i.title || i.name) === key);
                         })
                         .slice(0, 20)
@@ -78,7 +78,7 @@ const ItemDetails = () => {
                 zIndex='0'
             />
 
-            <Flex gap='1rem' padding={{ base: '15rem 0', sm: '12rem 0', xs: '20rem 0' }} margin='0 2rem' flexDirection='column'>
+            <Flex gap='1rem' padding={{ base: '15rem 0', sm: '12rem 0', xs: '25rem 0' }} margin='0 2rem' flexDirection='column'>
                 <Flex width="99%" justifyContent="flex-end">
                     <FavoriteWatchLaterButtons hideWatchlist={true} />
                 </Flex>
@@ -93,4 +93,4 @@ const ItemDetails = () => {
     );
 };
 
-export default ItemDetails;
+export default PersonDetails;
