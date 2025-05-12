@@ -1,5 +1,6 @@
 import { Flex, Text, Box, Heading } from "@chakra-ui/react";
 import KnownFor from "./KnownFor";
+import ActingCredits from "./ActingCredits";
 
 const Biography = ({ person }) => {
     const biography = person?.biography?.trim();
@@ -23,6 +24,9 @@ const Biography = ({ person }) => {
 
             <Box>
                 <KnownFor width="100%" knownForList={person.knownFor} />
+            </Box>
+            <Box>
+                <ActingCredits width="100%" credits={person.combinedCredits.cast} />
             </Box>
         </Flex>
     );
