@@ -9,6 +9,7 @@ import ItemInformation from "../components/ItemInformation/ItemInformation";
 import SocialLinks from "../components/SocialLinks/SocialLinks";
 import Credits from "../components/Credits/Credits"
 import FavoriteWatchLaterButtons from "../components/FavoriteWatchLaterButtons/FavoriteWatchLaterButtons";
+import LastSeasonCard from "../components/LastSeasonCard/LastSeasonCard";
 
 const ItemDetails = () => {
     const { id, type } = useParams();
@@ -26,6 +27,18 @@ const ItemDetails = () => {
         }
         fetchMovie();
     }, [id, type]);
+
+    const getLastSeason = (item) => {
+        if (!item?.seasons || !Array.isArray(item.seasons)) return null;
+
+        const normalSeasons = item.seasons.filter(s => s.season_number > 0);
+
+        const validSeasons = normalSeasons.filter(
+            s => s.poster_path && s.overview && s.overview.trim().length > 0
+        );
+
+        return validSeasons.at(-1) || null;
+    };
 
     return (
         <Box background='background.100' overflow='hidden' position='relative'>
@@ -66,6 +79,12 @@ const ItemDetails = () => {
                         <Flex width="100%" justifyContent="flex-end">
                             {(item.externalIds || item.homepage) && <SocialLinks externalIds={item.externalIds} homepage={item.homepage} />}
                         </Flex>
+                        {type === "tv" && getLastSeason(item) && (
+                            <Box mb="3rem">
+                                <LastSeasonCard width="100%" season={getLastSeason(item)} />
+                            </Box>
+
+                        )}
                         <Box>
                             <Credits width="100%" creditsList={item.credits} />
                         </Box>

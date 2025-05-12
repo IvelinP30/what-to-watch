@@ -26,6 +26,12 @@ const ItemInformation = ({ item, type }) => {
                         <Text color='#e1e1e1' fontWeight='bold'>Status:</Text>
                         <Text color='#afafaf'>{item.status}</Text>
                     </Flex>
+                    {item.type && (
+                        <Flex gap='0.5rem'>
+                            <Text color='#e1e1e1' fontWeight='bold'>Type:</Text>
+                            <Text color='#afafaf'>{item.type}</Text>
+                        </Flex>
+                    )}
                     <Flex gap='0.5rem'>
                         <Text color='#e1e1e1' fontWeight='bold'>Released on:</Text>
                         {
