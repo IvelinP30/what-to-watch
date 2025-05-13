@@ -1,6 +1,7 @@
 import { Flex, Text, Box, Heading } from "@chakra-ui/react";
 import KnownFor from "./KnownFor";
 import ActingCredits from "./ActingCredits";
+import AudioButton from "../AudioButton/AudioButton";
 
 const Biography = ({ person }) => {
     const biography = person?.biography?.trim();
@@ -12,7 +13,14 @@ const Biography = ({ person }) => {
             </Heading>
 
             <Flex flexDirection='column' gap='5px' mb={5}>
-                <Heading fontSize="2rem" mb="0.5rem" color='#e1e1e1'>Biography</Heading>
+                <Heading fontSize="2rem" mb="0.5rem" color='#e1e1e1'>Biography
+                    <Box ml={4} display="inline">
+                        <AudioButton
+                            text={biography}
+                            buttonLabel="Read Biography Aloud"
+                        />
+                    </Box>
+                </Heading>
                 <Text
                     color={biography ? "white" : "#afafaf"}
                     fontSize={biography ? "1.1rem" : "1.3rem"}

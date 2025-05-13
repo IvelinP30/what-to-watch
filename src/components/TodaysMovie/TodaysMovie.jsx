@@ -10,6 +10,7 @@ import {
   buttonStyles
 } from "./TodaysMovie.theme"
 import { useNavigate } from "react-router-dom"
+import AudioButton from "../AudioButton/AudioButton";
 
 const TodaysMovie = ({ movieOfTheDay }) => {
 
@@ -59,7 +60,14 @@ const TodaysMovie = ({ movieOfTheDay }) => {
 
           <Stack {...cardContentContainer}>
             <CardBody zIndex='100'>
-              <Heading  {...cardTitle}>{movieOfTheDay?.title}</Heading>
+              <Heading  {...cardTitle}>{movieOfTheDay?.title}
+                <Box ml={4} display="inline">
+                  <AudioButton
+                    text={movieOfTheDay?.overview}
+                    buttonLabel="Read Overview Aloud"
+                  />
+                </Box>
+              </Heading>
 
               <Text {...cardText}>{movieOfTheDay?.overview}</Text>
               <Button {...buttonStyles} onClick={() => goToTodaysMovieDetails()}>

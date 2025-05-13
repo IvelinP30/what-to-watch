@@ -11,6 +11,7 @@ import Credits from "../components/Credits/Credits"
 import FavoriteWatchLaterButtons from "../components/FavoriteWatchLaterButtons/FavoriteWatchLaterButtons";
 import LastSeasonCard from "../components/LastSeasonCard/LastSeasonCard";
 import Media from "../components/Media/Media"
+import AudioButton from "../components/AudioButton/AudioButton";
 
 const ItemDetails = () => {
     const { id, type } = useParams();
@@ -75,7 +76,14 @@ const ItemDetails = () => {
                     <Flex width={{ base: '100%', lg: "75%" }} flexBasis='80%' flexDirection='column' gap='2rem' zIndex='100'>
                         <Trailer item={item} />
                         <Flex flexDirection='column' gap='5px'>
-                            <Heading fontSize="2rem" mb="0.5rem" color='#e1e1e1'>Overview</Heading>
+                            <Heading fontSize="2rem" mb="0.5rem" color='#e1e1e1'>Overview
+                                <Box ml={4} display="inline">
+                                    <AudioButton
+                                        text={item?.overview}
+                                        buttonLabel="Read Overview Aloud"
+                                    />
+                                </Box>
+                            </Heading>
                             <Text color='#afafaf'>{item?.overview}</Text>
                         </Flex>
                         <Flex width="100%" justifyContent="flex-end">
