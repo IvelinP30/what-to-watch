@@ -20,7 +20,7 @@ public class JwtUtil {
     private long expirationMs;
 
     public String generateToken(String username) {
-        SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));  // Secure key
+        SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
@@ -30,8 +30,7 @@ public class JwtUtil {
     }
 
     public String validateTokenAndGetUsername(String token) {
-        Key key = Keys.hmacShaKeyFor(secret.getBytes());
-
+        SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
@@ -41,7 +40,7 @@ public class JwtUtil {
     }
 
     public Date getExpiration(String token) {
-        Key key = Keys.hmacShaKeyFor(secret.getBytes());
+        SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()

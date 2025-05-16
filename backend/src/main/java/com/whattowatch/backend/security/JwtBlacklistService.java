@@ -20,7 +20,6 @@ public class JwtBlacklistService {
         return blacklist.containsKey(token);
     }
 
-    // Optional: Cleanup expired tokens every minute
     @Scheduled(fixedRate = 60000)
     public void cleanupExpiredTokens() {
         Instant now = Instant.now();

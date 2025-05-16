@@ -11,22 +11,38 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuItem
+  MenuItem,
+  useToast
 } from "@chakra-ui/react"
 import { Search2Icon } from "@chakra-ui/icons"
 import { NavLink as RouterLink, useNavigate } from "react-router-dom"
 import {
   headerStyles, logoStyles, inputGroupStyles, accountIcon, inputStyles, searchIconStyles, navStyles, navLinkStyles, active, hidden
 } from "./Header.theme"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import useScrollListener from "../../hooks/useScrollListener"
-import { FaUserCircle, FaStar, FaBookmark } from "react-icons/fa"
+import { FaUserCircle, FaStar, FaBookmark, FaSignOutAlt, FaSignInAlt } from "react-icons/fa"
+import { logout } from "../../services/auth"
+import LogoutConfirmationDialog from "../LogoutConfirmationDialog";
+import { useDisclosure } from "@chakra-ui/react";
+import AuthDialog from "../AuthDialog";
+import { AuthContext } from "../../context/AuthContext";
 
 const Header = () => {
+  const toast = useToast();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('')
   const [show, setShow] = useState(true);
   const scroll = useScrollListener();
+
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { isOpen: isDialogOpen, onOpen: onDialogOpen, onClose: onDialogClose } = useDisclosure();
+  const { isOpen: isAuthOpen, onOpen: onAuthOpen, onClose: onAuthClose } = useDisclosure();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
 
   useEffect(() => {
     if (scroll.y > 200 && scroll.y - scroll.lastY > 0)
@@ -46,6 +62,30 @@ const Header = () => {
       navigate(`/search-results/${searchQuery}`)
     }
   }
+
+  const handleLogout = async () => {
+    const { success, error } = await logout();
+
+    if (success) {
+      setIsLoggedIn(false);
+      toast({
+        title: "Signed out successfully",
+        status: "success",
+        duration: 4000,
+        isClosable: false,
+      });
+    } else {
+      toast({
+        title: "Sign out failed",
+        description: error,
+        status: "error",
+        duration: 4000,
+        isClosable: false,
+      });
+    }
+
+    onDialogClose();
+  };
 
   return (
     <Flex
@@ -85,7 +125,7 @@ const Header = () => {
         </li>
       </Flex>
 
-      <Flex flex="1" minW="200px" justify="center" px={2}>
+      <Flex flex="0.7" minW="200px" justify="center" px={2}>
         <InputGroup {...inputGroupStyles} maxW="400px" width="100%">
           <Input
             {...inputStyles}
@@ -124,58 +164,195 @@ const Header = () => {
         </li>
       </Flex>
 
-      <Menu>
-        <Box
-          display={{ base: 'block', sm: 'none' }}
-          position="absolute"
-          top="2rem"
-          left="2rem"
-          zIndex="300"
-        >
-          <MenuButton
-            as={IconButton}
-            icon={<FaUserCircle />}
-            variant="ghost"
-            color="main.100"
-            {...accountIcon}
-            _hover={{ color: "main.200" }}
-          />
-          <MenuList minW="auto" w="auto" p={2}>
-            <MenuItem borderRadius={8} _hover={{ bg: "main.100", color: 'white', transform: "scale(1.05)", transition: 'all 0.3s ease-in-out', }}
-              onClick={() => navigate('/favourites')} fontSize='24px' icon={<FaStar />}>
-              Favorites
-            </MenuItem>
+      {isLoggedIn ? (
+        <Menu>
+          <Box
+            display={{ base: 'block', sm: 'none' }}
+            position="absolute"
+            top="2rem"
+            left="2rem"
+            zIndex="300"
+          >
+            <MenuButton
+              as={IconButton}
+              icon={<FaUserCircle />}
+              variant="ghost"
+              color="main.100"
+              {...accountIcon}
+              _hover={{ color: "main.200" }}
+            />
+            <MenuList minW="auto" w="auto" p={2}>
+              <MenuItem
+                borderRadius={8}
+                _hover={{
+                  bg: "main.100",
+                  color: 'white',
+                  transform: "scale(1.05)",
+                  transition: 'all 0.3s ease-in-out',
+                }}
+                onClick={() => navigate('/favourites')}
+                fontSize='24px'
+                icon={<FaStar />}
+              >
+                Favorites
+              </MenuItem>
+              <MenuItem
+                borderRadius={8}
+                _hover={{
+                  bg: "main.100",
+                  color: 'white',
+                  transform: "scale(1.05)",
+                  transition: 'all 0.3s ease-in-out',
+                }}
+                onClick={() => navigate('/watchlist')}
+                fontSize='24px'
+                icon={<FaBookmark />}
+              >
+                Watchlist
+              </MenuItem>
+              <MenuItem
+                borderRadius={8}
+                _hover={{
+                  bg: "main.100",
+                  color: 'white',
+                  transform: "scale(1.05)",
+                  transition: 'all 0.3s ease-in-out',
+                }}
+                onClick={onDialogOpen}
+                fontSize='24px'
+                icon={<FaSignOutAlt />}
+              >
+                Sign Out
+              </MenuItem>
+            </MenuList>
+          </Box>
 
-            <MenuItem borderRadius={8} _hover={{ bg: "main.100", color: 'white', transform: "scale(1.05)", transition: 'all 0.3s ease-in-out', }}
-              onClick={() => navigate('/watchlist')} fontSize='24px' icon={<FaBookmark />}>
-              Watchlist
-            </MenuItem>
+          <Box display={{ base: 'none', sm: 'block' }}>
+            <MenuButton
+              as={IconButton}
+              icon={<FaUserCircle />}
+              variant="ghost"
+              color="main.100"
+              {...accountIcon}
+              _hover={{ color: "main.200" }}
+            />
+            <MenuList minW="auto" w="auto" p={2}>
+              <MenuItem
+                borderRadius={8}
+                _hover={{
+                  bg: "main.100",
+                  color: 'white',
+                  transform: "scale(1.05)",
+                  transition: 'all 0.3s ease-in-out',
+                }}
+                onClick={() => navigate('/favourites')}
+                fontSize='24px'
+                icon={<FaStar />}
+              >
+                Favorites
+              </MenuItem>
+              <MenuItem
+                borderRadius={8}
+                _hover={{
+                  bg: "main.100",
+                  color: 'white',
+                  transform: "scale(1.05)",
+                  transition: 'all 0.3s ease-in-out',
+                }}
+                onClick={() => navigate('/watchlist')}
+                fontSize='24px'
+                icon={<FaBookmark />}
+              >
+                Watchlist
+              </MenuItem>
+              <MenuItem
+                borderRadius={8}
+                _hover={{
+                  bg: "main.100",
+                  color: 'white',
+                  transform: "scale(1.05)",
+                  transition: 'all 0.3s ease-in-out',
+                }}
+                onClick={onDialogOpen}
+                fontSize='24px'
+                icon={<FaSignOutAlt />}
+              >
+                Sign Out
+              </MenuItem>
+            </MenuList>
+          </Box>
+        </Menu>
+      ) : (
+        <Box>
+          <Flex
+            display={{ base: 'block', sm: 'none' }}
+            position="absolute"
+            top="2rem"
+            left="2rem"
+            zIndex="300"
+            align="center"
+            onClick={onAuthOpen}
+            _hover={{
+              opacity: 0.8,
+              transform: 'scale(0.95)',
+              transition: 'all 0.2s ease-in-out'
+            }}
+            mt={2}
+            {...navStyles}>
+            <li>
+              <ChakraLink color="main.100" fontSize="22px" variant='navLink' {...navLinkStyles}>
+                Sign In
+              </ChakraLink>
+              <IconButton
+                icon={<FaSignInAlt />}
+                aria-label="Sign in"
+                colorScheme="main"
+                variant="solid"
+                color="main.100"
+                fontSize='20px'
+                mb="1"
+              />
+            </li>
+          </Flex>
 
-          </MenuList>
+          <Flex
+            display={{ base: 'none', sm: 'block' }}
+            align="center"
+            onClick={onAuthOpen}
+            _hover={{
+              opacity: 0.8,
+              transform: 'scale(0.95)',
+              transition: 'all 0.2s ease-in-out'
+            }}
+            mt={2}
+            {...navStyles}>
+            <li>
+              <ChakraLink color="main.100" fontSize="28px" variant='navLink' {...navLinkStyles}>
+                Sign In
+              </ChakraLink>
+              <IconButton
+                icon={<FaSignInAlt />}
+                aria-label="Sign in"
+                colorScheme="main"
+                variant="solid"
+                color="main.100"
+                fontSize='23px'
+                mb="2.5"
+              />
+            </li>
+          </Flex>
+
+          <AuthDialog isOpen={isAuthOpen} onClose={onAuthClose} />
         </Box>
+      )
+      }
 
-        <Box display={{ base: 'none', sm: 'block' }}>
-          <MenuButton
-            as={IconButton}
-            icon={<FaUserCircle />}
-            variant="ghost"
-            color="main.100"
-            {...accountIcon}
-            _hover={{ color: "main.200" }}
-          />
-          <MenuList minW="auto" w="auto" p={2}>
-            <MenuItem borderRadius={8} _hover={{ bg: "main.100", color: 'white', transform: "scale(1.05)", transition: 'all 0.3s ease-in-out', }}
-              onClick={() => navigate('/favourites')} fontSize='24px' icon={<FaStar />}>
-              Favorites
-            </MenuItem>
-            <MenuItem borderRadius={8} _hover={{ bg: "main.100", color: 'white', transform: "scale(1.05)", transition: 'all 0.3s ease-in-out', }}
-              onClick={() => navigate('/watchlist')} fontSize='24px' icon={<FaBookmark />}>
-              Watchlist
-            </MenuItem>
-          </MenuList>
-        </Box>
-      </Menu>
-    </Flex>
+      <LogoutConfirmationDialog
+        isOpen={isDialogOpen}
+        onClose={onDialogClose}
+        onConfirm={handleLogout}
+      />
+    </Flex >
   )
 }
 

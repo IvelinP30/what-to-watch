@@ -1,6 +1,8 @@
 package com.whattowatch.backend.service;
 
 import com.whattowatch.backend.entity.User;
+import com.whattowatch.backend.exception.InvalidCredentialsException;
+import com.whattowatch.backend.exception.UsernameAlreadyExistsException;
 import com.whattowatch.backend.repository.UserRepository;
 import com.whattowatch.backend.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +18,7 @@ public class AuthService {
 
     public User register(String username, String password) {
         if (userRepo.findByUsername(username).isPresent()) {
-            throw new RuntimeException("Username already exists!");
+            throw new UsernameAlreadyExistsException();
         }
         User user = new User();
         user.setUsername(username);
@@ -26,14 +28,15 @@ public class AuthService {
 
     public String login(String username, String password) {
         System.out.println("Login attempt for: " + username);
+
         User user = userRepo.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new InvalidCredentialsException("Invalid username or password"));
 
         boolean matches = encoder.matches(password, user.getPassword());
         System.out.println("Password matches: " + matches);
 
         if (!matches) {
-            throw new RuntimeException("Invalid password");
+            throw new InvalidCredentialsException("Invalid username or password");
         }
 
         return jwtUtil.generateToken(user.getUsername());

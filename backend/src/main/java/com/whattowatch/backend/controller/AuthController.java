@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Collections;
 
 @RestController
@@ -23,7 +24,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody AuthRequest request) {
         authService.register(request.getUsername(), request.getPassword());
-        return ResponseEntity.ok("Registered successfully");
+        return ResponseEntity.ok(Collections.singletonMap("message", "Registered successfully"));
     }
 
     @PostMapping("/login")
@@ -33,7 +34,9 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(@RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<?> logout(@RequestHeader("Authorization") String authHeader,
+                                    Principal principal) {
+        System.out.println("Logged out: " + principal.getName());
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             return ResponseEntity.badRequest().body("Invalid Authorization header");
         }
