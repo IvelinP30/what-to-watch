@@ -1,5 +1,6 @@
 package com.whattowatch.backend.controller;
 
+import com.whattowatch.backend.entity.User;
 import com.whattowatch.backend.service.AuthService;
 import com.whattowatch.backend.dto.AuthRequest;
 import com.whattowatch.backend.security.JwtBlacklistService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Collections;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -23,15 +25,23 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody AuthRequest request) {
-        authService.register(request.getUsername(), request.getPassword());
+        authService.register(request.getUsername(), request.getPassword(), request.getName());
         return ResponseEntity.ok(Collections.singletonMap("message", "Registered successfully"));
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
-        String token = authService.login(request.getUsername(), request.getPassword());
-        return ResponseEntity.ok(Collections.singletonMap("token", token));
+        User user = authService.validateLogin(request.getUsername(), request.getPassword());
+        String token = jwtUtil.generateToken(user.getUsername());
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "token", token,
+                        "name", user.getName()
+                )
+        );
     }
+
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader("Authorization") String authHeader,

@@ -29,13 +29,14 @@ import { AuthContext } from "../context/AuthContext";
 
 const AuthDialog = ({ isOpen, onClose }) => {
     const [tabIndex, setTabIndex] = useState(0);
+    const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    const { setIsLoggedIn } = useContext(AuthContext);
+    const { setIsLoggedIn, setUser } = useContext(AuthContext);
 
     const toast = useToast();
 
@@ -43,70 +44,99 @@ const AuthDialog = ({ isOpen, onClose }) => {
         username: '',
         password: '',
         confirmPassword: '',
+        name: '',
     });
+
+    const [touched, setTouched] = useState({
+        username: false,
+        password: false,
+        confirmPassword: false,
+        name: false,
+    });
+
+    const markTouched = (field) => {
+        setTouched(prev => ({ ...prev, [field]: true }));
+    };
 
     useEffect(() => {
         setUsername('');
         setPassword('');
         setConfirmPassword('');
-        setErrors({ username: '', password: '', confirmPassword: '' });
+        setName('');
+        setErrors({ username: '', password: '', confirmPassword: '', name: '' });
         setShowPassword(false);
         setShowConfirmPassword(false);
     }, [tabIndex, isOpen]);
 
-    const validate = () => {
-        const newErrors = { username: '', password: '', confirmPassword: '' };
-        let isValid = true;
+    const validateField = (fieldName) => {
+        let error = '';
 
-        if (!username.trim()) {
-            newErrors.username = "Username is required";
-            isValid = false;
+        switch (fieldName) {
+            case 'username':
+                if (!username.trim()) error = 'Username is required';
+                break;
+
+            case 'password':
+                if (!password) {
+                    error = 'Password is required';
+                } else if (password.length < 6) {
+                    error = 'Password must be at least 6 characters';
+                }
+                break;
+
+            case 'confirmPassword':
+                if (tabIndex === 1) {
+                    if (!confirmPassword) {
+                        error = 'Please confirm your password';
+                    } else if (confirmPassword !== password) {
+                        error = 'Passwords do not match';
+                    }
+                }
+                break;
+
+            case 'name':
+                if (tabIndex === 1 && !name.trim()) {
+                    error = 'Name is required';
+                }
+                break;
+
+            default:
+                break;
         }
 
-        if (!password) {
-            newErrors.password = "Password is required";
-            isValid = false;
-        } else if (password.length < 6) {
-            newErrors.password = "Password must be at least 6 characters";
-            isValid = false;
-        }
+        setErrors(prev => ({ ...prev, [fieldName]: error }));
+        return error === '';
+    };
 
-        if (tabIndex === 1) {
-            if (!confirmPassword) {
-                newErrors.confirmPassword = "Please confirm your password";
-                isValid = false;
-            } else if (confirmPassword !== password) {
-                newErrors.confirmPassword = "Passwords do not match";
-                isValid = false;
-            }
-        }
+    const validateAllFields = () => {
+        const fieldsToValidate = tabIndex === 0
+            ? ['username', 'password']
+            : ['username', 'password', 'confirmPassword', 'name'];
 
-        setErrors(newErrors);
-        return isValid;
+        const results = fieldsToValidate.map(field => validateField(field));
+        return results.every(Boolean);
     };
 
     const isConfirmDisabled = () => {
         if (tabIndex === 0) {
             return !username.trim() || !password || errors.username || errors.password;
         }
-        return !username.trim() || !password || !confirmPassword || errors.username || errors.password || errors.confirmPassword;
+        return !username.trim() || !password || !confirmPassword || !name.trim() ||
+            errors.username || errors.password || errors.confirmPassword || errors.name;
     };
 
     const handleUsernameChange = (e) => setUsername(e.target.value);
     const handlePasswordChange = (e) => setPassword(e.target.value);
     const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
 
-    const handleBlur = () => {
-        validate();
-    };
-
     const handleLogin = async () => {
-        if (!validate()) return;
+        if (!validateAllFields()) return;
 
-        const { success, error } = await login(username, password);
+        const { success, error, user } = await login(username, password);
 
         if (success) {
             setIsLoggedIn(true);
+            setUser(user);
             toast({ title: "Signed in successfully", status: "success", duration: 4000 });
             onClose();
         } else {
@@ -121,12 +151,13 @@ const AuthDialog = ({ isOpen, onClose }) => {
     };
 
     const handleRegister = async () => {
-        if (!validate()) return;
+        if (!validateAllFields()) return;
 
-        const { success, error } = await register(username, password);
+        const { success, error, user } = await register(username, password, name);
 
         if (success) {
             setIsLoggedIn(true);
+            setUser(user);
             toast({ title: "Signed up and signed in successfully", status: "success", duration: 4000 });
             onClose();
         } else {
@@ -184,20 +215,36 @@ const AuthDialog = ({ isOpen, onClose }) => {
                     </Text>
 
                     <VStack spacing={6} as="form" onSubmit={e => e.preventDefault()}>
-
-                        <FormControl isInvalid={!!errors.username} isRequired>
+                        {tabIndex === 1 && (
+                            <FormControl isInvalid={!!errors.name && touched.name} isRequired>
+                                <FormLabel>Full Name</FormLabel>
+                                <Input
+                                    placeholder="Your full name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    onBlur={() => {
+                                        markTouched('name');
+                                        validateField('name');
+                                    }} />
+                                <FormErrorMessage>{errors.name}</FormErrorMessage>
+                            </FormControl>
+                        )}
+                        <FormControl isInvalid={!!errors.username && touched.username} isRequired>
                             <FormLabel>Username</FormLabel>
                             <Input
                                 placeholder="Username"
                                 value={username}
                                 onChange={handleUsernameChange}
-                                onBlur={handleBlur}
+                                onBlur={() => {
+                                    markTouched('username');
+                                    validateField('username');
+                                }}
                                 autoComplete="username"
                             />
                             <FormErrorMessage>{errors.username}</FormErrorMessage>
                         </FormControl>
 
-                        <FormControl isInvalid={!!errors.password} isRequired>
+                        <FormControl isInvalid={!!errors.password && touched.password} isRequired>
                             <FormLabel>Password</FormLabel>
                             <InputGroup>
                                 <Input
@@ -205,7 +252,10 @@ const AuthDialog = ({ isOpen, onClose }) => {
                                     type={showPassword ? "text" : "password"}
                                     value={password}
                                     onChange={handlePasswordChange}
-                                    onBlur={handleBlur}
+                                    onBlur={() => {
+                                        markTouched('password');
+                                        validateField('password');
+                                    }}
                                     autoComplete={tabIndex === 0 ? "current-password" : "new-password"}
                                     onCopy={(e) => e.preventDefault()}
                                     onCut={(e) => e.preventDefault()}
@@ -224,7 +274,7 @@ const AuthDialog = ({ isOpen, onClose }) => {
                         </FormControl>
 
                         {tabIndex === 1 && (
-                            <FormControl isInvalid={!!errors.confirmPassword} isRequired>
+                            <FormControl isInvalid={!!errors.confirmPassword && touched.confirmPassword} isRequired>
                                 <FormLabel>Confirm Password</FormLabel>
                                 <InputGroup>
                                     <Input
@@ -232,7 +282,10 @@ const AuthDialog = ({ isOpen, onClose }) => {
                                         type={showConfirmPassword ? "text" : "password"}
                                         value={confirmPassword}
                                         onChange={handleConfirmPasswordChange}
-                                        onBlur={handleBlur}
+                                        onBlur={() => {
+                                            markTouched('confirmPassword');
+                                            validateField('confirmPassword');
+                                        }}
                                         autoComplete="new-password"
                                         onPaste={(e) => e.preventDefault()}
                                     />

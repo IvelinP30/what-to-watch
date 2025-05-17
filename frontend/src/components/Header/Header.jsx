@@ -34,6 +34,7 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [show, setShow] = useState(true);
   const scroll = useScrollListener();
+  const { user } = useContext(AuthContext);
 
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const { isOpen: isDialogOpen, onOpen: onDialogOpen, onClose: onDialogClose } = useDisclosure();
@@ -173,14 +174,33 @@ const Header = () => {
             left="2rem"
             zIndex="300"
           >
-            <MenuButton
-              as={IconButton}
-              icon={<FaUserCircle />}
-              variant="ghost"
-              color="main.100"
-              {...accountIcon}
-              _hover={{ color: "main.200" }}
-            />
+            <Flex align="center">
+              <MenuButton
+                as={IconButton}
+                icon={<FaUserCircle />}
+                variant="ghost"
+                color="main.100"
+                {...accountIcon}
+                _hover={{ color: "main.200" }}
+              />
+              {user.name && (
+                <Box
+                  bg="main.100"
+                  color="black"
+                  fontWeight="medium"
+                  fontSize="sm"
+                  px={3}
+                  py={1}
+                  borderRadius="full"
+                  whiteSpace="nowrap"
+                  overflow="hidden"
+                  textOverflow="ellipsis"
+                  maxW="150px"
+                >
+                  {user.name}
+                </Box>
+              )}
+            </Flex>
             <MenuList minW="auto" w="auto" p={2}>
               <MenuItem
                 borderRadius={8}
@@ -228,14 +248,36 @@ const Header = () => {
           </Box>
 
           <Box display={{ base: 'none', sm: 'block' }}>
-            <MenuButton
-              as={IconButton}
-              icon={<FaUserCircle />}
-              variant="ghost"
-              color="main.100"
-              {...accountIcon}
-              _hover={{ color: "main.200" }}
-            />
+            <Flex align="center" mr={{ base: 0, md: '10px', lg: '20px' }} ml={{ base: 0, md: '10px', lg: '10px' }}>
+              {user.name && (
+                <Box
+                  bg="main.100"
+                  color="black"
+                  fontWeight="medium"
+                  fontSize="sm"
+                  px={4}
+                  py={0.5}
+                  borderRadius="20px 0 0 20px"
+                  whiteSpace="nowrap"
+                  overflow="hidden"
+                  textOverflow="ellipsis"
+                  maxW="150px"
+                  mr='-10px'
+                  zIndex={0}
+                >
+                  {user.name}
+                </Box>
+              )}
+              <MenuButton
+                as={IconButton}
+                icon={<FaUserCircle />}
+                variant="ghost"
+                color="main.100"
+                zIndex={1}
+                {...accountIcon}
+                _hover={{ color: "main.200" }}
+              />
+            </Flex>
             <MenuList minW="auto" w="auto" p={2}>
               <MenuItem
                 borderRadius={8}

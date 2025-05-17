@@ -1,11 +1,11 @@
 const baseURL = "http://localhost:8080/api";
 
-export const register = async (username, password) => {
+export const register = async (username, password, name) => {
     try {
         const response = await fetch(`${baseURL}/auth/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ username, password, name })
         });
 
         if (!response.ok) {
@@ -13,22 +13,19 @@ export const register = async (username, password) => {
             return { success: false, error: errorData.error || "Registration failed" };
         }
 
-        const userData = await response.json();
-        console.log("Registered successfully!", userData);
-
         const loginResult = await login(username, password);
+
         if (!loginResult.success) {
             return { success: false, error: "Registered but failed to log in: " + loginResult.error };
         }
 
-        return { success: true };
+        return { success: true, user: loginResult.user };
 
     } catch (error) {
         console.error("Registration error:", error.message);
         return { success: false, error: error.message || "Unknown error" };
     }
 };
-
 
 export const login = async (username, password) => {
     try {
@@ -44,8 +41,11 @@ export const login = async (username, password) => {
         }
 
         const data = await response.json();
+
         localStorage.setItem("token", data.token);
-        return { success: true };
+        localStorage.setItem("name", data.name);
+
+        return { success: true, user: { name: data.name } };
 
     } catch (error) {
         console.error("Login error:", error.message);
@@ -71,6 +71,7 @@ export const logout = async () => {
         if (!response.ok) {
             if (response.status === 403 || response.status === 401) {
                 localStorage.removeItem("token");
+                localStorage.removeItem("name");
                 return { success: false, error: "Session expired or unauthorized. Please login again." };
             }
 
@@ -79,11 +80,13 @@ export const logout = async () => {
         }
 
         localStorage.removeItem("token");
+        localStorage.removeItem("name");
         return { success: true };
 
     } catch (error) {
         console.error("Logout error:", error.message);
         localStorage.removeItem("token");
+        localStorage.removeItem("name");
         return { success: false, error: error.message || "Logout failed due to network error" };
     }
 };

@@ -25,6 +25,8 @@ public class User {
 
     private String password;
 
+    private String name;
+    
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<Favourite> favourites = new ArrayList<>();

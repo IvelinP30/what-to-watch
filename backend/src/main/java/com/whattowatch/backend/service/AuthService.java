@@ -16,30 +16,27 @@ public class AuthService {
     private final PasswordEncoder encoder;
     private final JwtUtil jwtUtil;
 
-    public User register(String username, String password) {
+    public User register(String username, String password, String name) {
         if (userRepo.findByUsername(username).isPresent()) {
             throw new UsernameAlreadyExistsException();
         }
+
         User user = new User();
         user.setUsername(username);
         user.setPassword(encoder.encode(password));
+        user.setName(name);
         return userRepo.save(user);
     }
 
-    public String login(String username, String password) {
-        System.out.println("Login attempt for: " + username);
-
+    public User validateLogin(String username, String password) {
         User user = userRepo.findByUsername(username)
                 .orElseThrow(() -> new InvalidCredentialsException("Invalid username or password"));
 
-        boolean matches = encoder.matches(password, user.getPassword());
-        System.out.println("Password matches: " + matches);
-
-        if (!matches) {
+        if (!encoder.matches(password, user.getPassword())) {
             throw new InvalidCredentialsException("Invalid username or password");
         }
 
-        return jwtUtil.generateToken(user.getUsername());
+        return user;
     }
 }
 

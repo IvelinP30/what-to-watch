@@ -42,8 +42,6 @@ export const logoStyles = {
 
 export const accountIcon = {
     fontSize: "40px",
-    mr: { base: 0, md: '10px', lg: '40px' },
-    ml: { base: 0, md: '10px', lg: '80px' },
     _active: {
         color: "main.200",
         backgroundColor: "none"
