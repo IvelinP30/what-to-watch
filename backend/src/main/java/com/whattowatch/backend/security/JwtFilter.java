@@ -41,6 +41,8 @@ public class JwtFilter extends OncePerRequestFilter {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
+            System.out.println("JWT USERNAME: " + username);
+
             var user = userRepo.findByUsername(username)
                     .orElseThrow(() -> new RuntimeException("User not found"));
 

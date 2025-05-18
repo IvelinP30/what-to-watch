@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/user/favorites")
+@RequestMapping("/api/user/favorite")
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class FavouriteController {
@@ -21,6 +21,12 @@ public class FavouriteController {
     @GetMapping
     public ResponseEntity<List<Favourite>> getFavourites() {
         return ResponseEntity.ok(favService.getFavourites(userService.getCurrentUser()));
+    }
+
+    @GetMapping("/exists/{itemId}")
+    public ResponseEntity<Boolean> isFavourite(@PathVariable Long itemId) {
+        boolean exists = favService.isInFavourites(userService.getCurrentUser(), itemId);
+        return ResponseEntity.ok(exists);
     }
 
     @PostMapping

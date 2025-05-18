@@ -1,5 +1,6 @@
 package com.whattowatch.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,8 +8,8 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "watchlist")
-public class Watchlist {
+@Table(name = "watch_later")
+public class WatchLater {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,6 +19,6 @@ public class Watchlist {
     private String imageURL;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 }

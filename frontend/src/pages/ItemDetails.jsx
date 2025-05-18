@@ -69,7 +69,11 @@ const ItemDetails = () => {
             />
             <Flex gap='1rem' padding={{ base: '15rem 0', sm: '12rem 0', xs: '25rem 0' }} margin='0 2rem' flexDirection='column' >
                 <Flex width="99%" justifyContent="flex-end">
-                    <FavoriteWatchLaterButtons />
+                    <FavoriteWatchLaterButtons
+                        id={item.id}
+                        name={item.title}
+                        imageURL={item.poster_path}
+                    />
                 </Flex>
                 <Flex gap='4rem' width="100%" flexDirection={{ base: 'column', lg: 'row' }} >
                     <ItemInformation item={item} type={type} />

@@ -80,7 +80,13 @@ const PersonDetails = () => {
 
             <Flex gap='1rem' padding={{ base: '15rem 0', sm: '12rem 0', xs: '25rem 0' }} margin='0 2rem' flexDirection='column'>
                 <Flex width="99%" justifyContent="flex-end">
-                    <FavoriteWatchLaterButtons hideWatchlist={true} />
+                    <FavoriteWatchLaterButtons />
+                    <FavoriteWatchLaterButtons
+                        id={person.id}
+                        name={person.name}
+                        imageURL={person.profile_path}
+                        hideWatchLater={true}
+                    />
                 </Flex>
                 <Flex gap='4rem' width="100%" flexDirection={{ base: 'column', lg: 'row' }}>
                     <PersonalInfo person={person} />

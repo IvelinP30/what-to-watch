@@ -31,4 +31,8 @@ public class FavouriteService {
     public List<Favourite> getFavourites(User user) {
         return favRepo.findAllByUser(user);
     }
+
+    public boolean isInFavourites(User user, Long itemId) {
+        return favRepo.findByUserAndItemId(user, itemId).isPresent();
+    }
 }

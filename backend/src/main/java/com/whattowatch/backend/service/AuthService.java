@@ -4,7 +4,6 @@ import com.whattowatch.backend.entity.User;
 import com.whattowatch.backend.exception.InvalidCredentialsException;
 import com.whattowatch.backend.exception.UsernameAlreadyExistsException;
 import com.whattowatch.backend.repository.UserRepository;
-import com.whattowatch.backend.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     private final UserRepository userRepo;
     private final PasswordEncoder encoder;
-    private final JwtUtil jwtUtil;
 
     public User register(String username, String password, String name) {
         if (userRepo.findByUsername(username).isPresent()) {

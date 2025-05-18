@@ -1,5 +1,6 @@
 package com.whattowatch.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,7 +8,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "favourites")
+@Table(name = "favourite")
 public class Favourite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +19,6 @@ public class Favourite {
     private String imageURL;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 }

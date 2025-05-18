@@ -13,10 +13,24 @@ public class UserDetailsServiceImpl {
     private final UserRepository userRepo;
 
     public User getCurrentUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = principal instanceof UserDetails ?
-                ((UserDetails) principal).getUsername() : principal.toString();
-        return userRepo.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth == null || auth.getPrincipal() == null) {
+            throw new RuntimeException("Authentication is missing");
+        }
+
+        Object principal = auth.getPrincipal();
+
+        if (principal instanceof User) {
+            return (User) principal;
+        } else if (principal instanceof UserDetails) {
+            String username = ((UserDetails) principal).getUsername();
+            return userRepo.findByUsername(username)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+        } else {
+            String username = principal.toString();
+            return userRepo.findByUsername(username)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+        }
     }
 }

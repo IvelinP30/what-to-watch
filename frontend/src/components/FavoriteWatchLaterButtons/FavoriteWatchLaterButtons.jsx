@@ -1,17 +1,74 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { HStack, IconButton, Tooltip } from '@chakra-ui/react';
-import { FaStar, FaRegStar, FaBookmark, FaRegBookmark } from 'react-icons/fa';
+import { FaStar, FaRegStar } from 'react-icons/fa';
+import { MdOutlineWatchLater, MdWatchLater } from "react-icons/md";
 
-const FavoriteWatchlistButtons = ({ hideWatchlist }) => {
+import {
+    addToFavorites,
+    removeFromFavorites,
+    isInFavourites
+} from '../../services/favourite';
+
+import {
+    addToWatchLater,
+    removeFromWatchLater,
+    isInWatchLater
+} from '../../services/watchLater';
+
+const FavoriteWatchLaterButtons = ({ id, name, imageURL, hideWatchLater }) => {
     const [isFavorite, setIsFavorite] = useState(false);
-    const [isWatchlist, setIsWatchlist] = useState(false);
+    const [isWatchLater, setIsWatchLater] = useState(false);
 
-    const handleToggleFavorite = () => {
-        setIsFavorite(prev => !prev);
+    useEffect(() => {
+        if (!id) return;
+
+        const fetchStatus = async () => {
+            try {
+                const favStatus = await isInFavourites(id);
+                setIsFavorite(favStatus);
+            } catch (error) {
+                console.error("Error checking favorite status:", error.message);
+                setIsFavorite(false);
+            }
+
+            if (!hideWatchLater) {
+                try {
+                    const watchStatus = await isInWatchLater(id);
+                    setIsWatchLater(watchStatus);
+                } catch (error) {
+                    console.error("Error checking watch later status:", error.message);
+                    setIsWatchLater(false);
+                }
+            }
+        };
+
+        fetchStatus(); 
+    }, [id, hideWatchLater]);
+
+    const handleToggleFavorite = async () => {
+        try {
+            if (isFavorite) {
+                await removeFromFavorites(id);
+            } else {
+                await addToFavorites(id, name, imageURL);
+            }
+            setIsFavorite(prev => !prev);
+        } catch (error) {
+            console.error("Error toggling favorite:", error.message);
+        }
     };
 
-    const handleToggleWatchlist = () => {
-        setIsWatchlist(prev => !prev);
+    const handleToggleWatchLater = async () => {
+        try {
+            if (isWatchLater) {
+                await removeFromWatchLater(id);
+            } else {
+                await addToWatchLater(id, name, imageURL);
+            }
+            setIsWatchLater(prev => !prev);
+        } catch (error) {
+            console.error("Error toggling watch later:", error.message);
+        }
     };
 
     return (
@@ -32,12 +89,13 @@ const FavoriteWatchlistButtons = ({ hideWatchlist }) => {
                     }}
                 />
             </Tooltip>
-            {!hideWatchlist && (
-                <Tooltip label={isWatchlist ? 'Remove from Watchlist' : 'Add to Watchlist'}>
+
+            {!hideWatchLater && (
+                <Tooltip label={isWatchLater ? 'Remove from Watch Later' : 'Add to Watch Later'}>
                     <IconButton
-                        aria-label="Watchlist"
-                        icon={isWatchlist ? <FaBookmark /> : <FaRegBookmark />}
-                        onClick={handleToggleWatchlist}
+                        aria-label="Watch Later"
+                        icon={isWatchLater ? <MdWatchLater /> : <MdOutlineWatchLater />}
+                        onClick={handleToggleWatchLater}
                         variant="ghost"
                         fontSize="1.7rem"
                         color='yellow.300'
@@ -54,4 +112,4 @@ const FavoriteWatchlistButtons = ({ hideWatchlist }) => {
     );
 };
 
-export default FavoriteWatchlistButtons;
+export default FavoriteWatchLaterButtons;

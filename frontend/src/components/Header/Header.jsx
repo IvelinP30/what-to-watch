@@ -21,7 +21,8 @@ import {
 } from "./Header.theme"
 import { useState, useEffect, useContext } from "react"
 import useScrollListener from "../../hooks/useScrollListener"
-import { FaUserCircle, FaStar, FaBookmark, FaSignOutAlt, FaSignInAlt } from "react-icons/fa"
+import { FaUserCircle, FaStar, FaSignOutAlt, FaSignInAlt } from "react-icons/fa"
+import { MdWatchLater } from "react-icons/md";
 import { logout } from "../../services/auth"
 import LogoutConfirmationDialog from "../LogoutConfirmationDialog";
 import { useDisclosure } from "@chakra-ui/react";
@@ -180,6 +181,7 @@ const Header = () => {
                 icon={<FaUserCircle />}
                 variant="ghost"
                 color="main.100"
+                zIndex={1}
                 {...accountIcon}
                 _hover={{ color: "main.200" }}
               />
@@ -191,11 +193,13 @@ const Header = () => {
                   fontSize="sm"
                   px={3}
                   py={1}
-                  borderRadius="full"
+                  borderRadius="0px 20px 20px 0px"
                   whiteSpace="nowrap"
                   overflow="hidden"
                   textOverflow="ellipsis"
                   maxW="150px"
+                  ml='-10px'
+                  zIndex={0}
                 >
                   {user.name}
                 </Box>
@@ -210,7 +214,7 @@ const Header = () => {
                   transform: "scale(1.05)",
                   transition: 'all 0.3s ease-in-out',
                 }}
-                onClick={() => navigate('/favourites')}
+                onClick={() => navigate('/Favorites')}
                 fontSize='24px'
                 icon={<FaStar />}
               >
@@ -224,11 +228,11 @@ const Header = () => {
                   transform: "scale(1.05)",
                   transition: 'all 0.3s ease-in-out',
                 }}
-                onClick={() => navigate('/watchlist')}
+                onClick={() => navigate('/watch-later')}
                 fontSize='24px'
-                icon={<FaBookmark />}
+                icon={<MdWatchLater />}
               >
-                Watchlist
+                Watch Later
               </MenuItem>
               <MenuItem
                 borderRadius={8}
@@ -287,7 +291,7 @@ const Header = () => {
                   transform: "scale(1.05)",
                   transition: 'all 0.3s ease-in-out',
                 }}
-                onClick={() => navigate('/favourites')}
+                onClick={() => navigate('/Favorites')}
                 fontSize='24px'
                 icon={<FaStar />}
               >
@@ -301,11 +305,11 @@ const Header = () => {
                   transform: "scale(1.05)",
                   transition: 'all 0.3s ease-in-out',
                 }}
-                onClick={() => navigate('/watchlist')}
+                onClick={() => navigate('/watch-later')}
                 fontSize='24px'
-                icon={<FaBookmark />}
+                icon={<MdWatchLater />}
               >
-                Watchlist
+                Watch Later
               </MenuItem>
               <MenuItem
                 borderRadius={8}
