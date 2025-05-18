@@ -18,7 +18,7 @@ import {
 import { AuthContext } from "../../context/AuthContext";
 import AuthDialog from '../AuthDialog';
 
-const FavoriteWatchLaterButtons = ({ id, name, imageURL, hideWatchLater }) => {
+const FavoriteWatchLaterButtons = ({ id, name, imageURL, type, hideWatchLater }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [isWatchLater, setIsWatchLater] = useState(false);
     const [loadingFav, setLoadingFav] = useState(true);
@@ -73,7 +73,7 @@ const FavoriteWatchLaterButtons = ({ id, name, imageURL, hideWatchLater }) => {
             if (isFavorite) {
                 await removeFromFavorites(id);
             } else {
-                await addToFavorites(id, name, imageURL);
+                await addToFavorites(id, name, imageURL, type);
             }
             setIsFavorite(prev => !prev);
         } catch (error) {
@@ -94,7 +94,7 @@ const FavoriteWatchLaterButtons = ({ id, name, imageURL, hideWatchLater }) => {
             if (isWatchLater) {
                 await removeFromWatchLater(id);
             } else {
-                await addToWatchLater(id, name, imageURL);
+                await addToWatchLater(id, name, imageURL, type);
             }
             setIsWatchLater(prev => !prev);
         } catch (error) {

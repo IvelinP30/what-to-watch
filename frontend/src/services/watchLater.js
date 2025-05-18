@@ -10,14 +10,14 @@ export const getWatchLater = async () => {
     return response.json();
 };
 
-export const addToWatchLater = async (id, name, imageURL) => {
+export const addToWatchLater = async (id, name, imageURL, type) => {
     const response = await fetch(`${baseURL}/user/watch-later`, {
         method: "POST",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id, name, imageURL }),
+        body: JSON.stringify({ id, name, imageURL, type }),
     });
     if (!response.ok) throw new Error("Failed to add to watch later");
     return response.json();

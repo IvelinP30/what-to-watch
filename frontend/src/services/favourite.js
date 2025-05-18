@@ -10,14 +10,14 @@ export const getFavorites = async () => {
     return response.json();
 };
 
-export const addToFavorites = async (id, name, imageURL) => {
+export const addToFavorites = async (id, name, imageURL, type) => {
     const response = await fetch(`${baseURL}/user/favorite`, {
         method: "POST",
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id, name, imageURL }),
+        body: JSON.stringify({ id, name, imageURL, type }),
     });
     if (!response.ok) throw new Error("Failed to add to favorites");
     return response.json();

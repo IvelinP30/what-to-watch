@@ -85,6 +85,7 @@ const PersonDetails = () => {
                         id={person.id}
                         name={person.name}
                         imageURL={person.profile_path}
+                        type='person'
                         hideWatchLater={true}
                     />
                 </Flex>

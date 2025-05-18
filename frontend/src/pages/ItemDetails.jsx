@@ -73,6 +73,7 @@ const ItemDetails = () => {
                         id={item.id}
                         name={item.title}
                         imageURL={item.poster_path}
+                        type={type}
                     />
                 </Flex>
                 <Flex gap='4rem' width="100%" flexDirection={{ base: 'column', lg: 'row' }} >

@@ -2,6 +2,7 @@ package com.whattowatch.backend.service.impl;
 
 import com.whattowatch.backend.entity.User;
 import com.whattowatch.backend.entity.WatchLater;
+import com.whattowatch.backend.entity.enums.MediaType;
 import com.whattowatch.backend.repository.WatchLaterRepository;
 import com.whattowatch.backend.service.WatchLaterService;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +17,12 @@ public class WatchLaterServiceImpl implements WatchLaterService {
     private final WatchLaterRepository watchRepo;
 
     @Override
-    public WatchLater addToWatchLater(User user, Long itemId, String name, String imageURL) {
+    public WatchLater addToWatchLater(User user, Long itemId, String name, String imageURL, MediaType type) {
         if (watchRepo.findByUserAndItemId(user, itemId).isPresent()) {
             throw new RuntimeException("Item already in watch later");
         }
-        WatchLater item = new WatchLater(null, itemId, name, imageURL, user);
+        
+        WatchLater item = new WatchLater(null, itemId, name, imageURL, type, user);
         return watchRepo.save(item);
     }
 

@@ -1,6 +1,7 @@
 package com.whattowatch.backend.controller;
 
 import com.whattowatch.backend.entity.Favourite;
+import com.whattowatch.backend.entity.enums.MediaType;
 import com.whattowatch.backend.service.FavouriteService;
 import com.whattowatch.backend.service.AppUserDetailsService;
 import lombok.RequiredArgsConstructor;
@@ -31,11 +32,14 @@ public class FavouriteController {
 
     @PostMapping
     public ResponseEntity<Favourite> addFavourite(@RequestBody Map<String, String> body) {
+        var type = MediaType.valueOf(body.get("type").toUpperCase());
+
         var fav = favService.addToFavourites(
                 userService.getCurrentUser(),
                 Long.valueOf(body.get("id")),
                 body.get("name"),
-                body.get("imageURL"));
+                body.get("imageURL"),
+                type);
         return ResponseEntity.ok(fav);
     }
 

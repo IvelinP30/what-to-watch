@@ -2,6 +2,7 @@ package com.whattowatch.backend.service.impl;
 
 import com.whattowatch.backend.entity.Favourite;
 import com.whattowatch.backend.entity.User;
+import com.whattowatch.backend.entity.enums.MediaType;
 import com.whattowatch.backend.repository.FavouriteRepository;
 import com.whattowatch.backend.service.FavouriteService;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +17,12 @@ public class FavouriteServiceImpl implements FavouriteService {
     private final FavouriteRepository favRepo;
 
     @Override
-    public Favourite addToFavourites(User user, Long itemId, String name, String imageURL) {
+    public Favourite addToFavourites(User user, Long itemId, String name, String imageURL, MediaType type) {
         if (favRepo.findByUserAndItemId(user, itemId).isPresent()) {
             throw new RuntimeException("Item already in favourites");
         }
-        Favourite fav = new Favourite(null, itemId, name, imageURL, user);
+
+        Favourite fav = new Favourite(null, itemId, name, imageURL, type, user);
         return favRepo.save(fav);
     }
 
