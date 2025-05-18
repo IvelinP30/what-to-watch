@@ -42,11 +42,6 @@ const Header = () => {
   const { isOpen: isAuthOpen, onOpen: onAuthOpen, onClose: onAuthClose } = useDisclosure();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
-  }, []);
-
-  useEffect(() => {
     if (scroll.y > 200 && scroll.y - scroll.lastY > 0)
       setShow(false);
     else
