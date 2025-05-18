@@ -1,7 +1,8 @@
-package com.whattowatch.backend.service;
+package com.whattowatch.backend.service.impl;
 
 import com.whattowatch.backend.entity.User;
 import com.whattowatch.backend.repository.UserRepository;
+import com.whattowatch.backend.service.AppUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserDetailsServiceImpl {
+public class UserDetailsServiceImpl implements AppUserDetailsService {
+
     private final UserRepository userRepo;
 
+    @Override
     public User getCurrentUser() {
         var auth = SecurityContextHolder.getContext().getAuthentication();
 

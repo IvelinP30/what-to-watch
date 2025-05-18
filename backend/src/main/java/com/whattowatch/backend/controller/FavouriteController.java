@@ -2,7 +2,7 @@ package com.whattowatch.backend.controller;
 
 import com.whattowatch.backend.entity.Favourite;
 import com.whattowatch.backend.service.FavouriteService;
-import com.whattowatch.backend.service.UserDetailsServiceImpl;
+import com.whattowatch.backend.service.AppUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.*;
 public class FavouriteController {
 
     private final FavouriteService favService;
-    private final UserDetailsServiceImpl userService;
+    private final AppUserDetailsService userService;
 
     @GetMapping
     public ResponseEntity<List<Favourite>> getFavourites() {

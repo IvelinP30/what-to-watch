@@ -1,7 +1,7 @@
 package com.whattowatch.backend.controller;
 
 import com.whattowatch.backend.entity.WatchLater;
-import com.whattowatch.backend.service.UserDetailsServiceImpl;
+import com.whattowatch.backend.service.AppUserDetailsService;
 import com.whattowatch.backend.service.WatchLaterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import java.util.*;
 public class WatchLaterController {
 
     private final WatchLaterService watchService;
-    private final UserDetailsServiceImpl userService;
+    private final AppUserDetailsService userService;
 
     @GetMapping
     public ResponseEntity<List<WatchLater>> getWatchLater() {

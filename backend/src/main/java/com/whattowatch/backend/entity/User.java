@@ -1,5 +1,6 @@
 package com.whattowatch.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,15 +15,17 @@ import java.util.*;
 @Entity
 @Table(name = "\"user\"")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     @ToString.Include
     private String username;
 
+    @JsonIgnore
     private String password;
 
     private String name;
