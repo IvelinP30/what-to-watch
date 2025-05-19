@@ -9,10 +9,14 @@ import ItemDetails from './pages/ItemDetails';
 import PersonDetailsPage from './pages/PersonDetails'
 import SearchResults from './pages/SearchResults';
 import Curtains from './components/Curtains/Curtains';
+import Favorites from "./pages/Favorites";
+import WatchLater from "./pages/WatchLater";
+import AccountInfo from "./pages/AccountInfo";
 import Footer from "./components/Footer/Footer"
+
 import { AuthProvider } from "./context/AuthContext"
 
-import { HOME_PAGE, MOVIES_PAGE, SHOWS_PAGE, DETAILS_PAGE, PERSON_DETAILS_PAGE, SEARCH_PAGE, PEOPLE_PAGE, PROVIDERS_PAGE } from './common/routes';
+import { HOME_PAGE, MOVIES_PAGE, SHOWS_PAGE, DETAILS_PAGE, PERSON_DETAILS_PAGE, SEARCH_PAGE, PEOPLE_PAGE, PROVIDERS_PAGE, ACCOUNT_FAVORITES, ACCOUNT_WATCH_LATER, ACCOUNT_INFO } from './common/routes';
 
 import { Box } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -39,6 +43,9 @@ function App() {
           <Route path={DETAILS_PAGE} element={<ItemDetails />}></Route>
           <Route path={PERSON_DETAILS_PAGE} element={<PersonDetailsPage />}></Route>
           <Route path={SEARCH_PAGE} element={<SearchResults />}></Route>
+          <Route path={ACCOUNT_FAVORITES} element={<Favorites />}></Route>
+          <Route path={ACCOUNT_WATCH_LATER} element={<WatchLater />}></Route>
+          <Route path={ACCOUNT_INFO} element={<AccountInfo />}></Route>
         </Routes>
         <Footer />
       </AuthProvider>

@@ -27,8 +27,8 @@ const Footer = () => {
                         <Link href="/people" _hover={{ textDecoration: 'underline', color: 'main.100' }}>
                             People
                         </Link>
-                        <Link href="/sources" _hover={{ textDecoration: 'underline', color: 'main.100' }}>
-                            Sources
+                        <Link href="/providers" _hover={{ textDecoration: 'underline', color: 'main.100' }}>
+                            Providers
                         </Link>
                     </Flex>
                 </Flex>

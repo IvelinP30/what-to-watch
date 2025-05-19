@@ -136,7 +136,7 @@ const FavoriteWatchLaterButtons = ({ id, name, imageURL, type, hideWatchLater })
                             color='yellow.300'
                             isDisabled={loadingWatchLater}
                             _hover={{
-                                color: 'yellow.200',
+                                color: 'yellow.300',
                                 boxShadow: '0 0 10px rgba(255, 255, 100, 0.5)',
                                 transform: 'scale(1.05)',
                                 transition: 'all 0.2s ease-in-out',

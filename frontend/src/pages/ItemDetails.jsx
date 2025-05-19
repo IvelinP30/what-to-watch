@@ -71,7 +71,7 @@ const ItemDetails = () => {
                 <Flex width="99%" justifyContent="flex-end">
                     <FavoriteWatchLaterButtons
                         id={item.id}
-                        name={item.title}
+                        name={type === 'movie' ? item?.title : item?.name}
                         imageURL={item.poster_path}
                         type={type}
                     />

@@ -21,7 +21,7 @@ import {
 } from "./Header.theme"
 import { useState, useEffect, useContext } from "react"
 import useScrollListener from "../../hooks/useScrollListener"
-import { FaUserCircle, FaStar, FaSignOutAlt, FaSignInAlt } from "react-icons/fa"
+import { FaUserCircle, FaStar, FaSignOutAlt, FaSignInAlt, FaInfo } from "react-icons/fa"
 import { MdWatchLater } from "react-icons/md";
 import { logout } from "../../services/auth"
 import LogoutConfirmationDialog from "../LogoutConfirmationDialog";
@@ -167,8 +167,10 @@ const Header = () => {
             display={{ base: 'block', sm: 'none' }}
             position="absolute"
             top="2rem"
-            left="2rem"
+            left="0.5rem"
             zIndex="300"
+            width='auto'
+            height='auto'
           >
             <Flex align="center">
               <MenuButton
@@ -209,7 +211,21 @@ const Header = () => {
                   transform: "scale(1.05)",
                   transition: 'all 0.3s ease-in-out',
                 }}
-                onClick={() => navigate('/Favorites')}
+                onClick={() => navigate('/account/info')}
+                fontSize='24px'
+                icon={<FaInfo />}
+              >
+                Account Information
+              </MenuItem>
+              <MenuItem
+                borderRadius={8}
+                _hover={{
+                  bg: "main.100",
+                  color: 'white',
+                  transform: "scale(1.05)",
+                  transition: 'all 0.3s ease-in-out',
+                }}
+                onClick={() => navigate('/account/favorites')}
                 fontSize='24px'
                 icon={<FaStar />}
               >
@@ -223,7 +239,7 @@ const Header = () => {
                   transform: "scale(1.05)",
                   transition: 'all 0.3s ease-in-out',
                 }}
-                onClick={() => navigate('/watch-later')}
+                onClick={() => navigate('/account/watch-later')}
                 fontSize='24px'
                 icon={<MdWatchLater />}
               >
@@ -286,7 +302,21 @@ const Header = () => {
                   transform: "scale(1.05)",
                   transition: 'all 0.3s ease-in-out',
                 }}
-                onClick={() => navigate('/Favorites')}
+                onClick={() => navigate('/account/info')}
+                fontSize='24px'
+                icon={<FaInfo />}
+              >
+                Account Information
+              </MenuItem>
+              <MenuItem
+                borderRadius={8}
+                _hover={{
+                  bg: "main.100",
+                  color: 'white',
+                  transform: "scale(1.05)",
+                  transition: 'all 0.3s ease-in-out',
+                }}
+                onClick={() => navigate('/account/favorites')}
                 fontSize='24px'
                 icon={<FaStar />}
               >
@@ -300,7 +330,7 @@ const Header = () => {
                   transform: "scale(1.05)",
                   transition: 'all 0.3s ease-in-out',
                 }}
-                onClick={() => navigate('/watch-later')}
+                onClick={() => navigate('/account/watch-later')}
                 fontSize='24px'
                 icon={<MdWatchLater />}
               >
