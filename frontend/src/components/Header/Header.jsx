@@ -28,6 +28,7 @@ import LogoutConfirmationDialog from "../LogoutConfirmationDialog";
 import { useDisclosure } from "@chakra-ui/react";
 import AuthDialog from "../AuthDialog";
 import { AuthContext } from "../../context/AuthContext";
+import { PROTECTED_ROUTES } from "../../common/routes"
 
 const Header = () => {
   const toast = useToast();
@@ -37,7 +38,7 @@ const Header = () => {
   const scroll = useScrollListener();
   const { user } = useContext(AuthContext);
 
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn, setUser, setAuthModalOpen } = useContext(AuthContext);
   const { isOpen: isDialogOpen, onOpen: onDialogOpen, onClose: onDialogClose } = useDisclosure();
   const { isOpen: isAuthOpen, onOpen: onAuthOpen, onClose: onAuthClose } = useDisclosure();
 
@@ -65,6 +66,13 @@ const Header = () => {
 
     if (success) {
       setIsLoggedIn(false);
+      setUser(null);
+
+      if (PROTECTED_ROUTES.includes(window.location.pathname)) {
+        navigate("/");
+        setAuthModalOpen(true);
+      }
+
       toast({
         title: "Signed out successfully",
         status: "success",
@@ -80,8 +88,8 @@ const Header = () => {
         isClosable: false,
       });
     }
-
     onDialogClose();
+
   };
 
   return (

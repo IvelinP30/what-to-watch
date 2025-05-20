@@ -13,13 +13,15 @@ import Favorites from "./pages/Favorites";
 import WatchLater from "./pages/WatchLater";
 import AccountInfo from "./pages/AccountInfo";
 import Footer from "./components/Footer/Footer"
+import AuthDialog from "./components/AuthDialog";
+import ProtectedRoute from "./components/ProtectedRoutes";
 
-import { AuthProvider } from "./context/AuthContext"
+import { AuthProvider, AuthContext } from "./context/AuthContext"
 
 import { HOME_PAGE, MOVIES_PAGE, SHOWS_PAGE, DETAILS_PAGE, PERSON_DETAILS_PAGE, SEARCH_PAGE, PEOPLE_PAGE, PROVIDERS_PAGE, ACCOUNT_FAVORITES, ACCOUNT_WATCH_LATER, ACCOUNT_INFO } from './common/routes';
 
 import { Box } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 
 function App() {
   const [firstLoad, setFirstLoad] = useState(false);
@@ -33,24 +35,58 @@ function App() {
       {firstLoad && <Curtains />}
 
       <AuthProvider>
-        <Header />
-        <Routes>
-          <Route path={HOME_PAGE} element={<Home />}></Route>
-          <Route path={MOVIES_PAGE} element={<Movies />}></Route>
-          <Route path={SHOWS_PAGE} element={<Shows />}></Route>
-          <Route path={PEOPLE_PAGE} element={<People />}></Route>
-          <Route path={PROVIDERS_PAGE} element={<Providers />}></Route>
-          <Route path={DETAILS_PAGE} element={<ItemDetails />}></Route>
-          <Route path={PERSON_DETAILS_PAGE} element={<PersonDetailsPage />}></Route>
-          <Route path={SEARCH_PAGE} element={<SearchResults />}></Route>
-          <Route path={ACCOUNT_FAVORITES} element={<Favorites />}></Route>
-          <Route path={ACCOUNT_WATCH_LATER} element={<WatchLater />}></Route>
-          <Route path={ACCOUNT_INFO} element={<AccountInfo />}></Route>
-        </Routes>
-        <Footer />
+        <AppContent />
       </AuthProvider>
     </Box>
   );
 }
+function AppContent() {
+  const { authModalOpen, setAuthModalOpen } = useContext(AuthContext);
+
+  return (
+    <>
+      <Header />
+      <Routes>
+        <Route path={HOME_PAGE} element={<Home />} />
+        <Route path={MOVIES_PAGE} element={<Movies />} />
+        <Route path={SHOWS_PAGE} element={<Shows />} />
+        <Route path={PEOPLE_PAGE} element={<People />} />
+        <Route path={PROVIDERS_PAGE} element={<Providers />} />
+        <Route path={DETAILS_PAGE} element={<ItemDetails />} />
+        <Route path={PERSON_DETAILS_PAGE} element={<PersonDetailsPage />} />
+        <Route path={SEARCH_PAGE} element={<SearchResults />} />
+
+        <Route
+          path={ACCOUNT_FAVORITES}
+          element={
+            <ProtectedRoute>
+              <Favorites />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ACCOUNT_WATCH_LATER}
+          element={
+            <ProtectedRoute>
+              <WatchLater />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ACCOUNT_INFO}
+          element={
+            <ProtectedRoute>
+              <AccountInfo />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+
+      <Footer />
+      <AuthDialog isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
+    </>
+  );
+}
+
 
 export default App;
