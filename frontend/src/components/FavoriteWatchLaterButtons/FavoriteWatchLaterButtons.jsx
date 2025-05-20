@@ -107,25 +107,45 @@ const FavoriteWatchLaterButtons = ({ id, name, imageURL, type, hideWatchLater })
     return (
         <>
             <HStack spacing={3}>
-                <Tooltip label={isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}>
-                    <IconButton
-                        aria-label="Favorite"
-                        icon={loadingFav ? <Spinner size="sm" /> : isFavorite ? <FaStar /> : <FaRegStar />}
-                        onClick={handleToggleFavorite}
-                        variant="ghost"
-                        fontSize="2rem"
-                        color='pink.400'
-                        isDisabled={loadingFav}
-                        _hover={{
-                            color: 'pink.300',
-                            boxShadow: '0 0 10px rgba(255, 105, 180, 0.6)',
-                            transform: 'scale(1.05)',
-                            transition: 'all 0.2s ease-in-out',
-                        }}
-                    />
-                </Tooltip>
-
-                {!hideWatchLater && (
+                {loadingFav === false && (
+                    <Tooltip label={isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}>
+                        <IconButton
+                            aria-label="Favorite"
+                            icon={isFavorite ? <FaStar /> : <FaRegStar />}
+                            onClick={handleToggleFavorite}
+                            variant="ghost"
+                            fontSize="2rem"
+                            color='pink.400'
+                            isDisabled={loadingFav}
+                            _hover={{
+                                color: 'pink.300',
+                                boxShadow: '0 0 10px rgba(255, 105, 180, 0.6)',
+                                transform: 'scale(1.05)',
+                                transition: 'all 0.2s ease-in-out',
+                            }}
+                        />
+                    </Tooltip>
+                )}
+                {loadingFav === true && hideWatchLater === true && (
+                    <Tooltip label={isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}>
+                        <IconButton
+                            aria-label="Favorite"
+                            icon={<Spinner size="sm" />}
+                            onClick={handleToggleFavorite}
+                            variant="ghost"
+                            fontSize="2rem"
+                            color='pink.400'
+                            isDisabled={loadingFav}
+                            _hover={{
+                                color: 'pink.300',
+                                boxShadow: '0 0 10px rgba(255, 105, 180, 0.6)',
+                                transform: 'scale(1.05)',
+                                transition: 'all 0.2s ease-in-out',
+                            }}
+                        />
+                    </Tooltip>
+                )}
+                {hideWatchLater === false && (
                     <Tooltip label={isWatchLater ? 'Remove from Watch Later' : 'Add to Watch Later'}>
                         <IconButton
                             aria-label="Watch Later"

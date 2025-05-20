@@ -74,6 +74,7 @@ const ItemDetails = () => {
                         name={type === 'movie' ? item?.title : item?.name}
                         imageURL={item.poster_path}
                         type={type}
+                        hideWatchLater={false}
                     />
                 </Flex>
                 <Flex gap='4rem' width="100%" flexDirection={{ base: 'column', lg: 'row' }} >
