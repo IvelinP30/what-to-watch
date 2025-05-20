@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem("token");
         const name = localStorage.getItem("name");
+        const createdAt = localStorage.getItem("createdAt");
 
         if (token) {
             try {
@@ -19,16 +20,22 @@ export const AuthProvider = ({ children }) => {
                 if (decoded.exp < currentTime) {
                     localStorage.removeItem("token");
                     localStorage.removeItem("name");
+                    localStorage.removeItem("createdAt");
                     setIsLoggedIn(false);
                     setUser(null);
                 } else {
                     setIsLoggedIn(true);
-                    if (name) setUser({ name });
+                    if (name && createdAt) {
+                        setUser({ name, createdAt });
+                    } else if (name) {
+                        setUser({ name });
+                    }
                 }
             } catch (err) {
                 console.error("Invalid token", err);
                 localStorage.removeItem("token");
                 localStorage.removeItem("name");
+                localStorage.removeItem("createdAt");
                 setIsLoggedIn(false);
                 setUser(null);
             }

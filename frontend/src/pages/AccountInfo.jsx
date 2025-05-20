@@ -6,7 +6,9 @@ import {
     Spinner,
     Center,
     Divider,
-    Card
+    Card,
+    Grid,
+    GridItem
 } from '@chakra-ui/react';
 import { AuthContext } from '../context/AuthContext';
 import { getFavorites } from '../services/favourite';
@@ -75,59 +77,102 @@ const AccountInfo = () => {
 
                     <Divider borderColor="main.100" borderWidth="3px" borderRadius={10} mb="2rem" />
 
-                    <Box p={5} pt={10}>
+                    <Flex justifyContent="center" alignItems="center" height="70%" p={5} pt={10}>
                         <Card
                             background="rgba(0, 0, 0, 0.3)"
                             backdropFilter="blur(20px)"
                             variant='elevated'
                             borderRadius="lg"
-                            p={3}
-                            width="100%"
+                            p={8}
+                            width={{ base: '100%', lg: '70%' }}
                             boxShadow="0 4px 30px rgba(0, 0, 0, 0.5)"
                         >
                             {loading ? (
                                 <Center><Spinner size="xl" color="red.400" /></Center>
                             ) : (
-                                <Flex
-                                    wrap="wrap"
+                                <Grid
+                                    templateColumns={{ base: '1fr', md: '1fr 1fr' }}
+                                    templateRows="repeat(2, auto)"
                                     gap={10}
-                                    justify="space-evenly"
-                                    align="center"
-                                    pt={10}
-                                    pb={10}
-                                    pr={5}
-                                    pl={5}
+                                    textAlign={{ base: 'center', md: 'left' }}
                                 >
-                                    <Flex align="center" gap={3} minWidth="200px">
-                                        <FaUser color="#fff" size={28} />
-                                        <Text fontSize={{ base: 'xl', lg: '2xl' }} color="white">
-                                            Name: <strong>{user.name}</strong>
-                                        </Text>
-                                    </Flex>
+                                    <GridItem>
+                                        <Flex align="center" gap={3}>
+                                            <FaUser color="#fff" size={28} />
+                                            <Box>
+                                                <Text fontSize="sm" color="gray.400" fontWeight="medium">
+                                                    Name
+                                                </Text>
+                                                <Text fontSize="2xl" color="white" fontWeight="bold">
+                                                    {user.name}
+                                                </Text>
+                                            </Box>
+                                        </Flex>
+                                    </GridItem>
 
-                                    <Flex align="center" gap={3} minWidth="200px" >
-                                        <FaStar color="pink" size={28} />
-                                        <Text fontSize={{ base: 'xl', lg: '2xl' }} color="white" cursor='pointer' onClick={() => navigate('/account/favorites')} _hover={{ textDecoration: "underline" }}>
-                                            Favorites: <strong>{favCount}</strong>
-                                        </Text>
-                                    </Flex>
+                                    <GridItem>
+                                        <Flex align="center" gap={3}>
+                                            <FaCalendarAlt color="gray" size={28} />
+                                            <Box>
+                                                <Text fontSize="sm" color="gray.400" fontWeight="medium">
+                                                    Account Created
+                                                </Text>
+                                                <Text fontSize="2xl" color="white" fontWeight="bold">
+                                                    {new Date(user.createdAt).toLocaleString()}
+                                                </Text>
+                                            </Box>
+                                        </Flex>
+                                    </GridItem>
 
-                                    <Flex align="center" gap={3} minWidth="200px"  >
-                                        <MdWatchLater color="yellow" size={28} />
-                                        <Text fontSize={{ base: 'xl', lg: '2xl' }} color="white" cursor="pointer" onClick={() => navigate('/account/watch-later')} _hover={{ textDecoration: "underline" }}>
-                                            Watch Later: <strong>{watchCount}</strong>
-                                        </Text>
-                                    </Flex>
-                                    <Flex align="center" gap={3} minWidth="200px">
-                                        <FaCalendarAlt color="gray" size={28} />
-                                        <Text fontSize={{ base: 'xl', lg: '2xl' }} color="white">
-                                            Account Created: <strong>{new Date(user.createdAt).toLocaleDateString()}</strong>
-                                        </Text>
-                                    </Flex>
-                                </Flex>
+                                    <GridItem>
+                                        <Box
+                                            onClick={() => navigate('/account/favorites')}
+                                            cursor="pointer"
+                                            role="group"
+                                            _hover={{ bg: 'rgba(255, 192, 203, 0.1)', borderRadius: 'md' }}
+                                            p={2}
+                                        >
+                                            <Flex align="center" gap={3}>
+                                                <FaStar color="pink" size={28} />
+                                                <Box>
+                                                    <Text fontSize="sm" color="gray.400" fontWeight="medium">
+                                                        Favorites
+                                                    </Text>
+                                                    <Text fontSize="2xl" color="white" fontWeight="bold">
+                                                        {favCount}
+                                                    </Text>
+                                                </Box>
+                                            </Flex>
+                                        </Box>
+                                    </GridItem>
+
+
+                                    <GridItem>
+                                        <Box
+                                            onClick={() => navigate('/account/watch-later')}
+                                            cursor="pointer"
+                                            role="group"
+                                            _hover={{ bg: 'rgba(255, 255, 0, 0.1)', borderRadius: 'md' }}
+                                            p={2}
+                                        >
+                                            <Flex align="center" gap={3}>
+                                                <MdWatchLater color="yellow" size={28} />
+                                                <Box>
+                                                    <Text fontSize="sm" color="gray.400" fontWeight="medium">
+                                                        Watch Later
+                                                    </Text>
+                                                    <Text fontSize="2xl" color="white" fontWeight="bold">
+                                                        {watchCount}
+                                                    </Text>
+                                                </Box>
+                                            </Flex>
+                                        </Box>
+                                    </GridItem>
+
+                                </Grid>
                             )}
                         </Card>
-                    </Box>
+                    </Flex>
                 </PageWrapper>
             </Flex>
         </Flex>

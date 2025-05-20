@@ -44,8 +44,9 @@ export const login = async (username, password) => {
 
         localStorage.setItem("token", data.token);
         localStorage.setItem("name", data.name);
+        localStorage.setItem("createdAt", data.createdAt);
 
-        return { success: true, user: { name: data.name } };
+        return { success: true, user: { name: data.name, createdAt: data.createdAt } };
 
     } catch (error) {
         console.error("Login error:", error.message);
@@ -72,6 +73,7 @@ export const logout = async () => {
             if (response.status === 403 || response.status === 401) {
                 localStorage.removeItem("token");
                 localStorage.removeItem("name");
+                localStorage.removeItem("createdAt");
                 return { success: false, error: "Session expired or unauthorized. Please login again." };
             }
 
@@ -81,12 +83,14 @@ export const logout = async () => {
 
         localStorage.removeItem("token");
         localStorage.removeItem("name");
+        localStorage.removeItem("createdAt");
         return { success: true };
 
     } catch (error) {
         console.error("Logout error:", error.message);
         localStorage.removeItem("token");
         localStorage.removeItem("name");
+        localStorage.removeItem("createdAt");
         return { success: false, error: error.message || "Logout failed due to network error" };
     }
 };

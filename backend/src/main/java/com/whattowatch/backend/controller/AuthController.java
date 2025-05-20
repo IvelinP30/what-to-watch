@@ -37,11 +37,11 @@ public class AuthController {
         return ResponseEntity.ok(
                 Map.of(
                         "token", token,
-                        "name", user.getName()
+                        "name", user.getName(),
+                        "createdAt", user.getCreatedAt()
                 )
         );
     }
-
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader("Authorization") String authHeader,

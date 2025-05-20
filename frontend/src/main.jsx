@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
       <BrowserRouter>
-        <ScrollToTop/>
+        <ScrollToTop />
         <App />
       </BrowserRouter>
     </ChakraProvider>
