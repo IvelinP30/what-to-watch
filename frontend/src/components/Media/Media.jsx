@@ -21,7 +21,7 @@ const MediaDataSection = ({ mediaData }) => {
             </Heading>
 
             <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={6}>
-                {mediaData?.media.slice(0, visibleItems).map((item, index) => (
+                {mediaData?.media?.slice(0, visibleItems).map((item, index) => (
                     <GridItem key={index} borderWidth="1px" borderRadius="md" overflow="hidden" boxShadow="sm">
                         {item.type === 'video' ? (
                             <Box>

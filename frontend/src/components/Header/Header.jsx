@@ -21,7 +21,7 @@ import {
 } from "./Header.theme"
 import { useState, useEffect, useContext } from "react"
 import useScrollListener from "../../hooks/useScrollListener"
-import { FaUserCircle, FaStar, FaSignOutAlt, FaSignInAlt, FaInfo } from "react-icons/fa"
+import { FaUserCircle, FaStar, FaSignOutAlt, FaSignInAlt, FaInfo, FaLightbulb } from "react-icons/fa"
 import { MdWatchLater } from "react-icons/md";
 import { logout } from "../../services/auth"
 import LogoutConfirmationDialog from "../LogoutConfirmationDialog";
@@ -261,6 +261,20 @@ const Header = () => {
                   transform: "scale(1.05)",
                   transition: 'all 0.3s ease-in-out',
                 }}
+                onClick={() => navigate('/account/recommendations')}
+                fontSize='24px'
+                icon={<FaLightbulb />}
+              >
+                Recommendations
+              </MenuItem>
+              <MenuItem
+                borderRadius={8}
+                _hover={{
+                  bg: "main.100",
+                  color: 'white',
+                  transform: "scale(1.05)",
+                  transition: 'all 0.3s ease-in-out',
+                }}
                 onClick={onDialogOpen}
                 fontSize='24px'
                 icon={<FaSignOutAlt />}
@@ -343,6 +357,20 @@ const Header = () => {
                 icon={<MdWatchLater />}
               >
                 Watch Later
+              </MenuItem>
+              <MenuItem
+                borderRadius={8}
+                _hover={{
+                  bg: "main.100",
+                  color: 'white',
+                  transform: "scale(1.05)",
+                  transition: 'all 0.3s ease-in-out',
+                }}
+                onClick={() => navigate('/account/recommendations')}
+                fontSize='24px'
+                icon={<FaLightbulb />}
+              >
+                Recommendations
               </MenuItem>
               <MenuItem
                 borderRadius={8}

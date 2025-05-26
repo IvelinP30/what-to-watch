@@ -9,9 +9,12 @@ export const SEARCH_PAGE = '/search-results/:searchQuery'
 export const ACCOUNT_FAVORITES = '/account/favorites'
 export const ACCOUNT_WATCH_LATER = '/account/watch-later'
 export const ACCOUNT_INFO = '/account/info'
+export const ACCOUNT_RECOMMANDATIONS = '/account/recommendations'
+
 
 export const PROTECTED_ROUTES = [
     ACCOUNT_FAVORITES,
     ACCOUNT_WATCH_LATER,
-    ACCOUNT_INFO
+    ACCOUNT_INFO,
+    ACCOUNT_RECOMMANDATIONS
 ];

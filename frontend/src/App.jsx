@@ -12,13 +12,14 @@ import Curtains from './components/Curtains/Curtains';
 import Favorites from "./pages/Favorites";
 import WatchLater from "./pages/WatchLater";
 import AccountInfo from "./pages/AccountInfo";
+import Recommendations from './pages/Recommendations';
 import Footer from "./components/Footer/Footer"
 import AuthDialog from "./components/AuthDialog";
 import ProtectedRoute from "./components/ProtectedRoutes";
 
 import { AuthProvider, AuthContext } from "./context/AuthContext"
 
-import { HOME_PAGE, MOVIES_PAGE, SHOWS_PAGE, DETAILS_PAGE, PERSON_DETAILS_PAGE, SEARCH_PAGE, PEOPLE_PAGE, PROVIDERS_PAGE, ACCOUNT_FAVORITES, ACCOUNT_WATCH_LATER, ACCOUNT_INFO } from './common/routes';
+import { HOME_PAGE, MOVIES_PAGE, SHOWS_PAGE, DETAILS_PAGE, PERSON_DETAILS_PAGE, SEARCH_PAGE, PEOPLE_PAGE, PROVIDERS_PAGE, ACCOUNT_FAVORITES, ACCOUNT_WATCH_LATER, ACCOUNT_INFO, ACCOUNT_RECOMMANDATIONS } from './common/routes';
 
 import { Box } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
@@ -77,6 +78,14 @@ function AppContent() {
           element={
             <ProtectedRoute>
               <AccountInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ACCOUNT_RECOMMANDATIONS}
+          element={
+            <ProtectedRoute>
+              <Recommendations />
             </ProtectedRoute>
           }
         />

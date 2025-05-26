@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [authModalOpen, setAuthModalOpen] = useState(false);
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -19,9 +20,7 @@ export const AuthProvider = ({ children }) => {
                 const currentTime = Date.now() / 1000;
 
                 if (decoded.exp < currentTime) {
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("name");
-                    localStorage.removeItem("createdAt");
+                    localStorage.clear();
                     setIsLoggedIn(false);
                     setUser(null);
                 } else {
@@ -34,17 +33,17 @@ export const AuthProvider = ({ children }) => {
                 }
             } catch (err) {
                 console.error("Invalid token", err);
-                localStorage.removeItem("token");
-                localStorage.removeItem("name");
-                localStorage.removeItem("createdAt");
+                localStorage.clear();
                 setIsLoggedIn(false);
                 setUser(null);
             }
         }
+
+        setLoading(false);
     }, []);
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, authModalOpen, setAuthModalOpen, user, setUser }}>
+        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, authModalOpen, setAuthModalOpen, user, setUser, loading }}>
             {children}
         </AuthContext.Provider>
     );

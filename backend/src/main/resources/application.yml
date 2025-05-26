@@ -19,3 +19,15 @@ server:
 jwt:
   secret: N2Z1YjZkZDgtMjhiZi00NTU5LTgzZWEtN2VmNDY4Yzk1NzQ1
   expiration: 3600000
+
+logging:
+  level:
+    org.springframework.web.client.RestTemplate: DEBUG
+    org.apache.http: DEBUG
+    org.apache.http.wire: DEBUG
+
+tmdb:
+  api:
+    key: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmODYxNDkyMGFhMzA5MzAyNGY3NmUyYWFkMzM0NDJlZCIsIm5iZiI6MTc0MTY5MzAwNS4zNjcsInN1YiI6IjY3ZDAyMDRkY2UyMGNmMTk3MjYwOGYwMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.B17Qh7Jt2PnvU8wYzv5ZNpz_SUBouiVEfXfAU2UQFSw
+  base:
+    url: https://api.themoviedb.org/3

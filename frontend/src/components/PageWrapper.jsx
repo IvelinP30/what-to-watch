@@ -1,11 +1,12 @@
 import { Box, Heading, Flex, Icon } from '@chakra-ui/react';
-import { FaStar, FaInfo } from 'react-icons/fa';
+import { FaStar, FaInfo, FaLightbulb } from 'react-icons/fa';
 import { MdWatchLater } from 'react-icons/md';
 
 const iconConfig = {
     favorites: { icon: FaStar, color: 'pink.400' },
     watchLater: { icon: MdWatchLater, color: 'yellow.300' },
     accountInfo: { icon: FaInfo, color: 'main.100' },
+    recommendations: { icon: FaLightbulb, color: 'secondary.100' }
 };
 
 const PageWrapper = ({ title, children, largeTitle = false, iconType = 'favorites' }) => {
