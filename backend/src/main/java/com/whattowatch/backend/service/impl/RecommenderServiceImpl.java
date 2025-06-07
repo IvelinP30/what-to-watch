@@ -32,6 +32,10 @@ public class RecommenderServiceImpl implements RecommenderService {
         Optional.ofNullable(favorites).ifPresent(watchedSet::addAll);
         Optional.ofNullable(watchLater).ifPresent(watchedSet::addAll);
 
+        watchedSet = watchedSet.stream()
+                .filter(item -> !"person".equalsIgnoreCase(item.getType()))
+                .collect(Collectors.toSet());
+        
         if (watchedSet.isEmpty()) return getFallbackRecommendations();
 
         Map<Integer, TmdbMediaItem> candidateMap = fetchCandidates();
